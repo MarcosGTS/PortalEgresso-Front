@@ -1,0 +1,77 @@
+.perfil-informacoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 60vh;
+    padding: 0 10%;
+    background-color: #f7f7f7;
+}
+
+.perfil-informacoes .identificacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 80%;
+}
+
+.perfil-informacoes .informacoes {
+    border-radius: 5px;
+    padding: 24px 64px;
+    font-size: 20px;
+}
+
+.perfil-informacoes .informacoes li {
+    list-style: none;
+    margin: 8px;
+}
+
+
+.perfil-informacoes img {
+    width: 250px;
+    height: auto;
+    border-radius: 500px;
+}
+
+.perfil-depoimento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #999;
+    
+    width: 100%;
+    min-height: 50vh;
+}
+
+.perfil-experiencias {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #282c34;
+
+    width: 100%;
+    min-height: 50vh;
+    padding: 16px 15%;
+}
+
+.perfil-experiencias > div {
+    display: flex;
+    overflow-y: auto;
+    width: 100%;
+    gap: 16px;
+    padding: 8px 0; 
+}
+
+.perfil-experiencias > h2 {
+    color: #0088a9;
+}
+
+.perfil-experiencias .depoimento-conteiner {
+    min-width: 400px;
+}
+
+.highlight {
+    color: #0088a9;
+    font-weight: bold;
+}

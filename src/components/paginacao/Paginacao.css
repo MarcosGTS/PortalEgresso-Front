@@ -1,0 +1,22 @@
+.paginacao-container {
+    background-color: c;
+    padding: 16px;
+    min-width: 500px;
+    max-width: 600px;
+    border-radius: 5px;  
+    background-color: #f7f7f7;
+    font-size:  1.25rem;
+}
+
+.paginacao-container button {
+    margin: 0 12px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.paginacao-container > div {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: #ececec;
+    border-radius: 5px;    
+}

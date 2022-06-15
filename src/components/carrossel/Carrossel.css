@@ -1,0 +1,24 @@
+.carrossel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+
+    min-height: 320px;
+    transition: linear 300ms;
+}
+
+.radio-button {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #0088a9;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100px;
+    margin: 0 20px;
+}

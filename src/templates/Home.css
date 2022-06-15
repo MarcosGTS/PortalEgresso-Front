@@ -1,0 +1,49 @@
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #f7f7f7;
+}
+
+.hero-segment, .depoimento-segment {
+    padding: 0 15%;
+}
+
+.hero-segment {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 70vh;
+    color: #282c34;
+}
+
+.hero-description {
+    width: 40%;
+    font-size: 20px; 
+}
+
+.hero-description p {
+    margin: 1rem 0;
+}
+
+.depoimento-segment {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 60vh;
+    width: 100%;
+    background-color: #282c34;
+    color: #fff;
+}
+
+.depoimento-segment h2 {
+    color: #0088a9;
+}
+
+.egressos-description {
+    width: 60%;
+    font-size: 20px; 
+}
