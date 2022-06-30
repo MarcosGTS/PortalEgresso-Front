@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo_ufma.png';
-import LayoutComponentes from '../LayoutComponents/LayoutComponents';
+import LayoutComponentes from '../components/layoutCompent/LayoutComponents';
 import "./Login.css";
 
 function Login() {

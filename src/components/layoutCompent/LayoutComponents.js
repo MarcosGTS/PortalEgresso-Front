@@ -1,4 +1,4 @@
-import './styles.css'
+import "./LayoutComponent.css";
 
 function LayoutComponentes(props) {
     return (

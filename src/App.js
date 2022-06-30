@@ -7,6 +7,7 @@ import Login from './templates/Login';
 import Register from './templates/Register';
 import Perfil from './templates/Perfil';
 import { Route, Routes } from "react-router-dom";
+import {Bar} from "react-chartjs-2";
 
 import logo from "./logo_ufma.png";
 

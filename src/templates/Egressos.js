@@ -1,4 +1,3 @@
-import Header from "../components/header/Header";
 import Tabela from "../components/tabela/Tabela";
 import Linha from "../components/tabela/Linha";
 
