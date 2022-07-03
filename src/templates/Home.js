@@ -1,7 +1,6 @@
-import Header from "../components/header/Header";
 import Carrossel from "../components/carrossel/Carrossel";
 import Depoimento from "../components/depoimento/Depoimento";
-import logo from "../logo.svg";
+import logo from "../imgs/logo.svg";
 import "./Home.css";
 
 function Home() {

@@ -1,6 +1,5 @@
 import Depoimento from "../components/depoimento/Depoimento";
 import "./Depoimentos.css";
-import logo from "../logo.svg";
 import React from "react";
 import DepoimentoService from "../services/DepoimentoService";
 

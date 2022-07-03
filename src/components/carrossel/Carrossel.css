@@ -4,14 +4,13 @@
     justify-content: space-between;
     width: fit-content;
 
-    min-height: 320px;
     transition: linear 300ms;
 }
 
 .radio-button {
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
     background-color: #0088a9;
 }
 

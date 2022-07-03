@@ -27,7 +27,6 @@
     margin: 8px;
 }
 
-
 .perfil-informacoes img {
     width: 250px;
     height: auto;
@@ -74,4 +73,10 @@
 .highlight {
     color: #0088a9;
     font-weight: bold;
+}
+
+.informacoes > .carrossel {
+    margin: 0 -50px;
+    border: #282c34 2px solid;
+    border-radius: 15px;
 }

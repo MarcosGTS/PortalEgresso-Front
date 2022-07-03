@@ -1,6 +1,6 @@
 import LayoutComponentes from "../components/layoutCompent/LayoutComponents";
 import { useState } from 'react';
-import logo from '../logo_ufma.png';
+import logo from '../imgs/logo_ufma.png';
 
 function Register() {
     const [email, setEmail] = useState("")
