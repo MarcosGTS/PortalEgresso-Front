@@ -35,9 +35,7 @@ class Login extends React.Component {
     }
 
     render () {
-        // const [email, setEmail] = useState("")
-        // const [password, setPassword] = useState("")
-
+        
         return (
             <LayoutComponentes>
                 <form className="login-form" 

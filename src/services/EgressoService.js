@@ -5,6 +5,10 @@ class EgressoService extends ApiService{
         super("api/egressos")
     }
 
+    salvarEgresso(obj) {
+        return this.post("/", obj);
+    }
+
     obterEgressoCompleto(id) {
         return this.get(`/${id}`);
     }
