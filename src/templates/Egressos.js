@@ -1,5 +1,6 @@
 import Tabela from "../components/tabela/Tabela";
 import Linha from "../components/tabela/Linha";
+import { Link } from "react-router-dom";
 
 import './Home.css'
 import React from "react";
@@ -44,14 +45,18 @@ class Egressos extends React.Component {
                 <Tabela>
                     {
                         this.state.egressos.map(egresso => {
-                            {if (egresso.cursoEgressoAssoc.length > 0) {
-                                return <Linha
+                            
+                            return <Link to={`/perfil/${egresso.id}`}>
+                                <div>{egresso.nome}</div>
+                                {/* <Linha
+                                id = {egresso.id}
                                 nome = {egresso.nome}
                                 curso = {egresso.cursoEgressoAssoc[0].curso.nome || "Sem Curso"}
                                 nivel = {egresso.cursoEgressoAssoc[0].curso.nivel || "Sem Curso"}
                                 data = {egresso.cursoEgressoAssoc[0].data_conclusao || "xx/xx/xx"}
-                                />
-                            }}
+                                /> */}
+                            </Link>
+                        
                         })
                     }
                 </Tabela>
