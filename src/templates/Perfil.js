@@ -7,6 +7,14 @@ import DepoimentoService from "../services/DepoimentoService";
 import "./Perfil.css";
 
 import defaultImg from "../imgs/perfil_default.png";
+import { useParams } from "react-router-dom";
+
+export function withRoute(Children) {
+    return (props) => {
+        const match = useParams();
+        return <Children {...props} match={match}/>
+    }
+}
 
 class Perfil extends React.Component {
     state = {
@@ -89,24 +97,30 @@ class Perfil extends React.Component {
     }
     
     componentDidMount() {
-        this.egressoService.obterEgressoCompleto(2)
-            .then(response => {
-                console.log(response);
-                this.setState({egresso: response.data});
-            })
-            .catch(erro => {
-                console.log(erro);
-            })
+        const id = +this.props.match.id;
 
-        this.depoimentoService.obterDepoimentoEgresso(2)
-            .then(response => {
-                console.log(response.data);
-                if (response.data.length > 1)
-                    this.setState({depoimento: response.data[0]});
-            })
-            .catch(erro => {
-                console.log(erro)
-            })
+        if (id) {
+
+            this.egressoService.obterEgressoCompleto(id)
+                .then(response => {
+                    console.log(response);
+                    this.setState({egresso: response.data});
+                })
+                .catch(erro => {
+                    console.log(erro);
+                })
+
+            this.depoimentoService.obterDepoimentoEgresso(id)
+                .then(response => {
+                    console.log(response.data);
+                    if (response.data.length > 1)
+                        this.setState({depoimento: response.data[0]});
+                })
+                .catch(erro => {
+                    console.log(erro)
+                })
+        }
+        
     }
 
     render() {
@@ -167,4 +181,4 @@ function Informacoes(props) {
     </div>
 }
 
-export default Perfil;
+export default withRoute(Perfil);
