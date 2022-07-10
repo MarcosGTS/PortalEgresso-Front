@@ -16,6 +16,10 @@ class EgressoService extends ApiService{
     obterEgressos(){
         return this.get("/");
     }
+
+    editarEgresso(id, obj) {
+        return this.put(`/${id}`, obj);
+    }
 }
 
 export default EgressoService;

@@ -8,6 +8,14 @@ class DepoimentoService extends ApiService{
     obterTodosDepoimentos() {
         return this.get("/");
     }
+
+    obterDepoimentoEgresso(id) {
+        return this.get(`/egresso/${id}`);
+    }
+
+    editarDepoimento(id, obj) {
+        return this.put(`/${id}`, obj);
+    }
 }
 
 export default DepoimentoService;

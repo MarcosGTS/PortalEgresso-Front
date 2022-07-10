@@ -6,13 +6,14 @@ import React from "react";
 import EgressoService from "../services/EgressoService";
 
 class Egressos extends React.Component {
-    state = {
-        egressos:[],
-    }
-
+    
     constructor() {
         super();
         this.service = new EgressoService();
+        
+        this.state = {
+            egressos:[],
+        }
     }
 
     componentDidMount() {

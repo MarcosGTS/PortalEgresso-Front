@@ -6,9 +6,9 @@ import EgressoService from "../services/EgressoService";
 import DepoimentoService from "../services/DepoimentoService";
 import "./Perfil.css";
 
-import defaultImg from "../imgs/perfil_default.png";
+import edit from "../imgs/edit.png";
 
-class Perfil extends React.Component {
+class Configuracao extends React.Component {
     state = {
         egresso: {
             "id": 2,
@@ -18,68 +18,10 @@ class Perfil extends React.Component {
             "resumo": "Postman resumo teste",
             "url_foto": null,
             "profissoes": [],
-            "contatos": [
-                {
-                    "id": {
-                        "egresso_id": 2,
-                        "contato_id": 1
-                    },
-                    "endereco": "https://github.com",
-                    "contato": {
-                        "id": 1,
-                        "nome": "github",
-                        "url_logo": "logo github"
-                    }
-                }
-            ],
-            "cursoEgressoAssoc": [
-                {
-                    "id": {
-                        "curso_id": 1,
-                        "egresso_id": 2
-                    },
-                    "data_inicio": [
-                        2001,
-                        3,
-                        27
-                    ],
-                    "data_conclusao": [
-                        2005,
-                        3,
-                        27
-                    ],
-                    "curso": {
-                        "id": 1,
-                        "nome": "Ciencia da Computacao",
-                        "nivel": "Mestrado"
-                    }
-                },
-                {
-                    "id": {
-                        "curso_id": 1,
-                        "egresso_id": 2
-                    },
-                    "data_inicio": [
-                        2001,
-                        3,
-                        27
-                    ],
-                    "data_conclusao": [
-                        2005,
-                        3,
-                        27
-                    ],
-                    "curso": {
-                        "id": 1,
-                        "nome": "Engenharia Eletrica",
-                        "nivel": "Mestrado"
-                    }
-                },
-            ]
+            "contatos": [],
+            "cursoEgressoAssoc": []
         },
-        depoimento: {
-            texto: "Teste depoimento"
-        },
+        depoimento: {},
     }
 
     constructor() {
@@ -89,7 +31,7 @@ class Perfil extends React.Component {
     }
     
     componentDidMount() {
-        this.egressoService.obterEgressoCompleto(2)
+        this.egressoService.obterEgressoCompleto(4)
             .then(response => {
                 console.log(response);
                 this.setState({egresso: response.data});
@@ -98,36 +40,89 @@ class Perfil extends React.Component {
                 console.log(erro);
             })
 
-        this.depoimentoService.obterDepoimentoEgresso(2)
+        this.depoimentoService.obterDepoimentoEgresso(4)
             .then(response => {
-                console.log(response.data);
-                if (response.data.length > 1)
-                    this.setState({depoimento: response.data[0]});
+
+                const depoimentos = response.data;
+                const depoimento = depoimentos[0]
+                delete depoimento.egresso;
+
+                if (depoimentos.length > 0) 
+                    this.setState({depoimento});
             })
             .catch(erro => {
                 console.log(erro)
             })
     }
 
+    editarEgresso() {
+        const obj = this.state.egresso;
+        this.egressoService.editarEgresso(4, obj)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    }
+
+    editarDepoimento() {
+        console.log(this.state);
+        const obj =  this.state.depoimento;
+
+        this.depoimentoService.editarDepoimento(obj.id, obj)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(erro => {
+                console.log(erro);
+            })
+    }
+
     render() {
         return <div className="home">
             <div className="perfil-informacoes">
+                
                 <div className="identificacao">
-                    <img src={this.state.egresso.url_foto || defaultImg}/>
+                    <img src={this.state.egresso.url_foto || "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.0deYKiMiZCWnQiOU66QI_wHaHa%26pid%3DApi&f=1"}/>
                     <h2>{this.state.egresso.nome}</h2>
                 </div>  
                 <Informacoes 
-                    email={this.state["egresso"]["email"]}
-                    cursos={this.state["egresso"]["cursoEgressoAssoc"]}
+                    email={this.state.egresso.email}
+                    cursos={this.state.egresso.cursoEgressoAssoc}
                 />
             </div>
             <div className="perfil-depoimento">
                 <Paginacao>
                     <div name="Resumo">
-                        {this.state.egresso.resumo}
+                        <button className="edit-button"
+                            onClick={() => this.editarEgresso()}
+                        >
+                            <img src={edit}/>
+                        </button>
+                        <textarea
+                            value={this.state.egresso.resumo}
+                            onChange={(e) => {
+                                const egresso = this.state.egresso;
+                                egresso.resumo = e.target.value;
+                                this.setState({egresso});
+                            }}
+                        />
                     </div>
                     <div name="Depoimento">
-                        {this.state.depoimento.texto}
+                        <button className="edit-button"
+                        onClick={() => this.editarDepoimento()}
+                        >
+                            <img src={edit}/>
+                        </button>
+                        <textarea
+                            value={this.state.depoimento.texto}
+                            onChange={(e) => {
+                                const depoimento = this.state.depoimento;
+                                depoimento.texto = e.target.value;
+                                this.setState({depoimento});
+                            }}
+                        />
                     </div>
                 </Paginacao>
             </div>
@@ -155,16 +150,14 @@ function Informacoes(props) {
         <Carrossel>
             {props.cursos.map(cursoAssoc => {
                 const curso = cursoAssoc.curso;
-                
                 return (<div>
                     <li><div className="highlight">Curso:</div> {curso.nome}</li>
                     <li><div className="highlight">Data Inicio:</div> {curso.dataInicio}</li>
                     <li><div className="highlight">Data Conclusao:</div> {curso.dataConclusao}</li>
                 </div>)
-                
             })}
         </Carrossel>
     </div>
 }
 
-export default Perfil;
+export default Configuracao;

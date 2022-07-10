@@ -20,6 +20,7 @@ class Register extends React.Component {
 
     register() {
         const obj = this.state;
+
         this.service.salvarEgresso(obj)
             .then(response => {
                 console.log(response)
@@ -47,6 +48,7 @@ class Register extends React.Component {
                         <input
                             className={this.state.email !== "" ? 'has-val input' : 'input'}
                             type="email"
+                            value={this.state.email}
                             onChange={e => this.setState({email: e.target.value})}
                         />
                         <span className="focus-input" data-placeholder="Email"></span>
@@ -56,15 +58,17 @@ class Register extends React.Component {
                         <input
                             className={this.state.senha !== "" ? 'has-val input' : 'input'}
                             type="password"
+                            value={this.state.senha}
                             onChange={e => this.setState({senha: e.target.value})}
                         />
-                        <span className="focus-input" data-placeholder="password"></span>
+                        <span className="focus-input" data-placeholder="Senha"></span>
                     </div>
     
                     <div className="wrap-input">
                         <input
                             className={this.state.nome !== "" ? 'has-val input' : 'input'}
                             type="nome"
+                            value={this.state.nome}
                             onChange={e => this.setState({nome: e.target.value})}
                         />
                         <span className="focus-input" data-placeholder="Nome"></span>
@@ -74,6 +78,7 @@ class Register extends React.Component {
                         <input
                             className={this.state.cpf !== "" ? 'has-val input' : 'input'}
                             type="cpf"
+                            value={this.state.cpf}
                             onChange={e => this.setState({cpf: e.target.value})}
                         />
                         <span className="focus-input" data-placeholder="Cpf"></span>

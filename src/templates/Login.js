@@ -53,6 +53,7 @@ class Login extends React.Component {
                         <input
                             className={this.state.email !== "" ? 'has-val input' : 'input'}
                             type="email"
+                            value={this.state.email}
                             onChange={e => this.setState({email: e.target.value})}
                         />
                         <span className="focus-input" data-placeholder="Email"></span>
@@ -62,6 +63,7 @@ class Login extends React.Component {
                         <input
                             className={this.state.senha !== "" ? 'has-val input' : 'input'}
                             type="password"
+                            value={this.state.senha}
                             onChange={e => this.setState({senha: e.target.value})}
                         />
                         <span className="focus-input" data-placeholder="password"></span>
