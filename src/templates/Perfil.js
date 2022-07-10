@@ -8,6 +8,7 @@ import "./Perfil.css";
 
 import defaultImg from "../imgs/perfil_default.png";
 import { useParams } from "react-router-dom";
+import CartaExperiencia from "../components/cartaExperiencia/CartaExperiencia";
 
 export function withRoute(Children) {
     return (props) => {
@@ -25,7 +26,15 @@ class Perfil extends React.Component {
             "cpf": "232323232",
             "resumo": "Postman resumo teste",
             "url_foto": null,
-            "profissoes": [],
+            "profissoes": [{
+                "descricao": "Foi muito legal",
+                "cargo": {
+                    "nome": "Engenheria de Software"
+                },
+                "faixaSalario" : {
+                    "descricao": "2000-3000",
+                }
+            }],
             "contatos": [
                 {
                     "id": {
@@ -149,9 +158,10 @@ class Perfil extends React.Component {
                 <h2>Experiencias</h2>
                 <div>
                     {this.state.egresso.profissoes.map(prof => {
-                        <Depoimento
-                        nome={prof.cargo.nome}
-                        depoimento={prof.descricao}    
+                        return <CartaExperiencia
+                        cargo={prof.cargo.nome}
+                        faixaSalario={prof.faixaSalario.descricao}
+                        descricao={prof.descricao}    
                         />
                     })}
                 </div>
