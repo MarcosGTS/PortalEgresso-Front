@@ -20,6 +20,10 @@ class EgressoService extends ApiService{
     editarEgresso(id, obj) {
         return this.put(`/${id}`, obj);
     }
+
+    adicionarCurso(idEgresso, idCurso, obj) {
+        return this.post(`/${idEgresso}/curso/${idCurso}`, obj);
+    }
 }
 
 export default EgressoService;

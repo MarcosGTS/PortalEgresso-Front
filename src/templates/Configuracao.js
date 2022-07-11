@@ -4,6 +4,8 @@ import Depoimento from "../components/depoimento/Depoimento";
 import Paginacao from "../components/paginacao/Paginacao";
 import EgressoService from "../services/EgressoService";
 import DepoimentoService from "../services/DepoimentoService";
+import AdicaoCurso from "./subTemplates/AdicaoCurso";
+
 import "./Perfil.css";
 
 import edit from "../imgs/edit.png";
@@ -137,7 +139,8 @@ class Configuracao extends React.Component {
                     })}
                 </div>
             </div>
-        </div>
+            <AdicaoCurso/>
+        </div>   
     }
 
 }
