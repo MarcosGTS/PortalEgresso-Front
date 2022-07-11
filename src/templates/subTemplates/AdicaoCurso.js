@@ -40,8 +40,19 @@ class AdicaoCurso extends React.Component {
     adicionarCurso() {
         const idEgresso = 4;
         const idCurso = this.state.cursoSelecionado;
+        
+        const obj = {
+            dataInicio: this.state.dataInicio,
+            dataConclusao: this.state.dataConclusao
+        };
 
-        console.log(this.state);
+        this.egressoService.adicionarCurso(idEgresso, idCurso, obj)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(erro => {
+                console.log(erro);
+            })
     }
     
     render() {

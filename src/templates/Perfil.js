@@ -179,16 +179,20 @@ function Informacoes(props) {
         <Carrossel>
             {props.cursos.map(cursoAssoc => {
                 const curso = cursoAssoc.curso;
-                
+                console.log(cursoAssoc);
                 return (<div>
                     <li><div className="highlight">Curso:</div> {curso.nome}</li>
-                    <li><div className="highlight">Data Inicio:</div> {curso.dataInicio}</li>
-                    <li><div className="highlight">Data Conclusao:</div> {curso.dataConclusao}</li>
+                    <li><div className="highlight">Data Inicio:</div>{formatDate(cursoAssoc.data_inicio)}</li>
+                    <li><div className="highlight">Data Conclusao:</div> {formatDate(cursoAssoc.data_conclusao)}</li>
                 </div>)
                 
             })}
         </Carrossel>
     </div>
+}
+
+function formatDate(datas) {
+    return `${datas[2]}/${datas[1]}/${datas[0]}`;
 }
 
 export default withRoute(Perfil);

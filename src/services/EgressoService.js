@@ -13,7 +13,7 @@ class EgressoService extends ApiService{
         return this.get(`/${id}`);
     }
 
-    obterEgressos(){
+    obterEgressos() {
         return this.get("/");
     }
 
@@ -23,6 +23,10 @@ class EgressoService extends ApiService{
 
     adicionarCurso(idEgresso, idCurso, obj) {
         return this.post(`/${idEgresso}/curso/${idCurso}`, obj);
+    }
+
+    adicionarCargo(idEgresso, idCargo, obj) {
+        return this.post(`/${idEgresso}/cargo/${idCargo}`, obj);
     }
 }
 

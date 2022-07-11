@@ -9,6 +9,7 @@ import AdicaoCurso from "./subTemplates/AdicaoCurso";
 import "./Perfil.css";
 
 import edit from "../imgs/edit.png";
+import AdicaoProfissao from "./subTemplates/AdicaoProfissao";
 
 class Configuracao extends React.Component {
     state = {
@@ -94,6 +95,7 @@ class Configuracao extends React.Component {
                     cursos={this.state.egresso.cursoEgressoAssoc}
                 />
             </div>
+            
             <div className="perfil-depoimento">
                 <Paginacao>
                     <div name="Resumo">
@@ -128,6 +130,7 @@ class Configuracao extends React.Component {
                     </div>
                 </Paginacao>
             </div>
+
             <div className="perfil-experiencias">
                 <h2>Experiencias</h2>
                 <div>
@@ -140,6 +143,7 @@ class Configuracao extends React.Component {
                 </div>
             </div>
             <AdicaoCurso/>
+            <AdicaoProfissao/>
         </div>   
     }
 
@@ -155,12 +159,16 @@ function Informacoes(props) {
                 const curso = cursoAssoc.curso;
                 return (<div>
                     <li><div className="highlight">Curso:</div> {curso.nome}</li>
-                    <li><div className="highlight">Data Inicio:</div> {curso.dataInicio}</li>
-                    <li><div className="highlight">Data Conclusao:</div> {curso.dataConclusao}</li>
+                    <li><div className="highlight">Data Inicio:</div> {formatDate(cursoAssoc.data_inicio)}</li>
+                    <li><div className="highlight">Data Conclusao:</div> {formatDate(cursoAssoc.data_conclusao)}</li>
                 </div>)
             })}
         </Carrossel>
     </div>
+}
+
+function formatDate(datas) {
+    return `${datas[2]}/${datas[1]}/${datas[0]}`;
 }
 
 export default Configuracao;
