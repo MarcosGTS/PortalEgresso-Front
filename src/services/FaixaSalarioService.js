@@ -1,8 +1,8 @@
 import ApiService from "./ApiService";
 
 class FaixaSalarioService extends ApiService {
-    constructor() {
-        super("/api/faixasalario")
+    constructor(apiToken) {
+        super("/api/faixasalario", apiToken);
     }
 
     obterTodasFaixas() {

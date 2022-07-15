@@ -1,8 +1,8 @@
 import ApiService from "./ApiService";
 
 class DepoimentoService extends ApiService{
-    constructor () {
-        super("/api/depoimentos");
+    constructor (apiToken) {
+        super("/api/depoimentos", apiToken);
     }
 
     obterTodosDepoimentos() {
@@ -14,7 +14,7 @@ class DepoimentoService extends ApiService{
     }
 
     editarDepoimento(id, obj) {
-        return this.put(`/${id}`, obj);
+        return this.post(`/editar/${id}`, obj);
     }
 }
 

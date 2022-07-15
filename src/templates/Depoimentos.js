@@ -19,7 +19,8 @@ class Depoimentos extends React.Component {
 
     constructor() {
         super();
-        this.service = new DepoimentoService();
+        const apiToken = localStorage.getItem("Token");
+        this.service = new DepoimentoService(apiToken);
     }
 
     componentDidMount() {

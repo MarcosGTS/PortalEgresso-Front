@@ -1,8 +1,8 @@
 import ApiService from "./ApiService";
 
 class CargoService extends ApiService {
-    constructor() {
-        super("/api/cargos")
+    constructor(apiToken) {
+        super("/api/cargos", apiToken);
     }
 
     obterTodosCargos() {

@@ -2,16 +2,13 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: "http://localhost:8080",
-    headers:{
-        'Access-Control-Allow-Origin':'*',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Access-Control-Allow-Credentials': 'true',
-    }
 });
 
 class ApiService {
-    constructor(apiUrl) {
+    constructor(apiUrl, apiToken) {
         this.apiUrl = apiUrl
+        instance.defaults.headers.post['Authorization'] = apiToken;
+        // instance.defaults.headers.put['Authorization'] = apiToken;
     }
 
     put(url, objeto) {

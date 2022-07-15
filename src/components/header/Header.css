@@ -1,5 +1,6 @@
 .header {
     display: flex; 
+    align-items: center;
     justify-content: space-between;
     background-color: #282c34;
     align-items: center;
@@ -8,32 +9,45 @@
     width:100%;
 }
 
-.header li, .header a, .header button {
-    color: #f7f7f7;
+.header-list {
     font-size: 16px;
     text-decoration: none;
+    color:#f7f7f7;
 }
 
-ul a {
+.header-list {
+    margin: 0;
+}
+
+.header-list a {
     list-style: none;
 }
 
-.header li {
+.header-list li {
     display: inline-block;
     padding: 0 20px;
+    color:#f7f7f7;
 }
 
-li a {
+.header0-list li a {
     transition: all 0.4s ease 0s;
 }
 
-li a:hover {
+.header-list li a:hover {
     color:#0088a9;
 }
 
 .logo {
     width: 60px;
     height: auto;
+    border-radius: 100px;   
+}
+
+.foto-perfil {
+    width: 30px;
+    height: auto;
+    border-radius: 100px;
+    
 }
 
 button {

@@ -23,8 +23,9 @@ class AdicaoCurso extends React.Component {
 
     constructor() {
         super();
-        this.cursoService = new CursoService();
-        this.egressoService = new EgressoService();
+        const apiToken = localStorage.getItem("Token");
+        this.cursoService = new CursoService(apiToken);
+        this.egressoService = new EgressoService(apiToken);
     }
 
     componentDidMount() {
@@ -38,7 +39,7 @@ class AdicaoCurso extends React.Component {
     }
 
     adicionarCurso() {
-        const idEgresso = 4;
+        const idEgresso = localStorage.getItem("Id");
         const idCurso = this.state.cursoSelecionado;
         
         const obj = {

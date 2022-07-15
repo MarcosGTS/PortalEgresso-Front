@@ -29,12 +29,15 @@ class Configuracao extends React.Component {
 
     constructor() {
         super();
-        this.egressoService = new EgressoService();
-        this.depoimentoService = new DepoimentoService();
+        const apiToken = localStorage.getItem("Token");
+        this.egressoService = new EgressoService(apiToken);
+        this.depoimentoService = new DepoimentoService(apiToken);
     }
     
     componentDidMount() {
-        this.egressoService.obterEgressoCompleto(4)
+        const id = localStorage.getItem("Id");
+
+        this.egressoService.obterEgressoCompleto(id)
             .then(response => {
                 console.log(response);
                 this.setState({egresso: response.data});
@@ -43,7 +46,7 @@ class Configuracao extends React.Component {
                 console.log(erro);
             })
 
-        this.depoimentoService.obterDepoimentoEgresso(4)
+        this.depoimentoService.obterDepoimentoEgresso(id)
             .then(response => {
 
                 const depoimentos = response.data;
@@ -59,8 +62,10 @@ class Configuracao extends React.Component {
     }
 
     editarEgresso() {
+        const id = localStorage.getItem("Id");
         const obj = this.state.egresso;
-        this.egressoService.editarEgresso(4, obj)
+
+        this.egressoService.editarEgresso(id, obj)
             .then(response => {
                 console.log(response)
             })

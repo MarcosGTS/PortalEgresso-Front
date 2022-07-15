@@ -101,8 +101,9 @@ class Perfil extends React.Component {
 
     constructor() {
         super();
-        this.egressoService = new EgressoService();
-        this.depoimentoService = new DepoimentoService();
+        const apiToken = localStorage.getItem("Token");
+        this.egressoService = new EgressoService(apiToken);
+        this.depoimentoService = new DepoimentoService(apiToken);
     }
     
     componentDidMount() {

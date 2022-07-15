@@ -5,6 +5,7 @@ import LayoutComponentes from '../components/layoutCompent/LayoutComponents';
 import "./Login.css";
 import ApiService from '../services/ApiService';
 import axios from 'axios';
+import EgressoService from '../services/EgressoService';
 
 class Login extends React.Component {
 
@@ -16,18 +17,32 @@ class Login extends React.Component {
     constructor () {
         super() 
         this.service = new ApiService("/login");
+        this.egressoService = new EgressoService();
     }
 
     login(email, senha) {
 
         const obj = {email, senha};
-        const headers = {
-            token: ""
-        }
 
-        axios.post("http://localhost:8080/login", obj, headers)
+        this.egressoService.obterIdporEmail(email)
             .then(response => {
-                console.log(response);
+                const id = response.data.id;
+                const foto = response.data.url_foto;
+
+                localStorage.setItem("Id", id);
+                localStorage.setItem("Foto", foto);
+            })
+            .catch(erro => {
+                console.log(erro);
+            })
+
+
+        axios.post("http://localhost:8080/login", obj)
+            .then(response => {
+                const token = response.data["Token"];
+                localStorage.setItem("Token", token);
+
+                // window.location.href = "/config";
             })
             .catch(erro => {
                 console.log(erro);
@@ -40,7 +55,6 @@ class Login extends React.Component {
             <LayoutComponentes>
                 <form className="login-form" 
                     onSubmit={(e) => {
-                        e.preventDefault();
                         this.login(this.state.email, this.state.senha);
                     }}>
 

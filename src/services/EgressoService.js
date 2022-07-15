@@ -1,8 +1,8 @@
 import ApiService from "./ApiService";
 
 class EgressoService extends ApiService{
-    constructor() {
-        super("api/egressos")
+    constructor(apiToken) {
+        super("api/egressos", apiToken);
     }
 
     salvarEgresso(obj) {
@@ -15,6 +15,10 @@ class EgressoService extends ApiService{
 
     obterEgressos() {
         return this.get("/");
+    }
+
+    obterIdporEmail(email) {
+        return this.get(`/email/${email}`);
     }
 
     editarEgresso(id, obj) {

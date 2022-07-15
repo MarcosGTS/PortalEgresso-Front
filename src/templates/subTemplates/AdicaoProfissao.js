@@ -17,9 +17,10 @@ class AdicaoProfissao extends React.Component {
 
     constructor() {
         super();
-        this.cargoService = new CargoService();
-        this.faixaService = new FaixaSalarioService();
-        this.egressoService = new EgressoService();
+        const apiToken = localStorage.getItem("Token");
+        this.cargoService = new CargoService(apiToken);
+        this.faixaService = new FaixaSalarioService(apiToken);
+        this.egressoService = new EgressoService(apiToken);
     }
 
     componentDidMount() {
@@ -41,7 +42,7 @@ class AdicaoProfissao extends React.Component {
     }
 
     adicionarCargo() {
-        const idEgresso = 4;
+        const idEgresso = localStorage.getItem("Id");
         const idCargo = this.state.cargoSelecionado;
         const obj = {
             nomeEmpresa: this.state.empresa,

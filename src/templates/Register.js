@@ -15,7 +15,8 @@ class Register extends React.Component {
 
     constructor() {
         super();
-        this.service = new EgressoService();
+        const apiToken = localStorage.getItem("Token");
+        this.service = new EgressoService(apiToken);
     }
 
     register() {
