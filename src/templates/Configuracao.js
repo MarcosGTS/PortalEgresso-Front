@@ -1,13 +1,15 @@
 import React from "react";
-import Carrossel from "../components/carrossel/Carrossel";
-import Depoimento from "../components/depoimento/Depoimento";
 import Paginacao from "../components/paginacao/Paginacao";
 import EgressoService from "../services/EgressoService";
 import DepoimentoService from "../services/DepoimentoService";
 import AdicaoCurso from "./subTemplates/AdicaoCurso";
+import CartaExperiencia from "../components/cartaExperiencia/CartaExperiencia";
+import ModalCentralizado from "../components/ModalCentralizado";
+import Button from 'react-bootstrap/Button';
 
 import "./Perfil.css";
 
+import defaultImg from "../imgs/perfil_default.png";
 import edit from "../imgs/edit.png";
 import AdicaoProfissao from "./subTemplates/AdicaoProfissao";
 
@@ -25,6 +27,8 @@ class Configuracao extends React.Component {
             "cursoEgressoAssoc": []
         },
         depoimento: {},
+        modalCurso: false,
+        modalCargo: false,
     }
 
     constructor() {
@@ -90,15 +94,10 @@ class Configuracao extends React.Component {
     render() {
         return <div className="home">
             <div className="perfil-informacoes">
-                
                 <div className="identificacao">
-                    <img src={this.state.egresso.url_foto || "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.0deYKiMiZCWnQiOU66QI_wHaHa%26pid%3DApi&f=1"}/>
+                    <img src={this.state.egresso.url_foto || defaultImg}/>
                     <h2>{this.state.egresso.nome}</h2>
                 </div>  
-                <Informacoes 
-                    email={this.state.egresso.email}
-                    cursos={this.state.egresso.cursoEgressoAssoc}
-                />
             </div>
             
             <div className="perfil-depoimento">
@@ -137,39 +136,67 @@ class Configuracao extends React.Component {
             </div>
 
             <div className="perfil-experiencias">
+                <Button onClick={() => {
+                    this.setState({modalCurso: true})
+                }}>Adicionar Curso</Button>
+
+                <div>
+                    {this.state.egresso.cursoEgressoAssoc.map(cursoAssoc => {
+                        const curso = cursoAssoc.curso;
+                        return (<div className="depoimento-conteiner">
+                            <div><span className="highlight" >Curso:</span>
+                                {curso.nome}
+                            </div> 
+                            <div><span className="highlight" >Data Inicio:</span>
+                                {formatDate(cursoAssoc.data_inicio)}
+                            </div> 
+                            <div><span className="highlight" >Data Conclusao:</span>
+                                {formatDate(cursoAssoc.data_conclusao)}
+                            </div> 
+                        </div>)
+                    })}
+                </div>
+            </div>
+
+            <div className="perfil-experiencias">
+                <Button onClick={() => {
+                    this.setState({modalCargo: true})
+                }}>Adicionar Cargo</Button>
+
                 <h2>Experiencias</h2>
                 <div>
                     {this.state.egresso.profissoes.map(prof => {
-                        <Depoimento
-                        nome={prof.cargo.nome}
-                        depoimento={prof.descricao}    
+                        return <CartaExperiencia
+                        cargo={prof.cargo.nome}
+                        faixaSalario={prof.faixaSalario.descricao}
+                        descricao={prof.descricao}    
                         />
                     })}
                 </div>
             </div>
-            <AdicaoCurso/>
-            <AdicaoProfissao/>
+
+            <ModalCentralizado 
+                titulo="Adicionar Curso"
+                show={this.state.modalCurso}
+                onHide={() => {
+                    this.setState({modalCurso: false})
+                }}
+            >
+                <AdicaoCurso/>
+            </ModalCentralizado>
+            
+            <ModalCentralizado 
+                titulo="Adicionar Experiencia"
+                show={this.state.modalCargo}
+                onHide={() => {
+                    this.setState({modalCargo: false})
+                }}
+            >
+                <AdicaoProfissao/>
+            </ModalCentralizado>
         </div>   
     }
 
-}
-
-function Informacoes(props) {
-    return <div className="informacoes">
-        <ul>
-            <li><div className="highlight">Email:</div> {props.email}</li>
-        </ul>
-        <Carrossel>
-            {props.cursos.map(cursoAssoc => {
-                const curso = cursoAssoc.curso;
-                return (<div>
-                    <li><div className="highlight">Curso:</div> {curso.nome}</li>
-                    <li><div className="highlight">Data Inicio:</div> {formatDate(cursoAssoc.data_inicio)}</li>
-                    <li><div className="highlight">Data Conclusao:</div> {formatDate(cursoAssoc.data_conclusao)}</li>
-                </div>)
-            })}
-        </Carrossel>
-    </div>
 }
 
 function formatDate(datas) {

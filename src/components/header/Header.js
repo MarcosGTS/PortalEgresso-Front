@@ -23,7 +23,7 @@ function Header (props) {
                 </ul>
                 
                 <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Dropdown.Toggle id="dropdown-basic">
                         <img src={foto} className="foto-perfil"/>
                     </Dropdown.Toggle>
 

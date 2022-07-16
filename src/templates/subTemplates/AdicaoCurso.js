@@ -3,6 +3,8 @@ import "../../components/depoimento/Depoimento.css";
 import CursoService from "../../services/CursoService";
 import EgressoService from "../../services/EgressoService";
 
+import Modal from 'react-bootstrap/Modal';
+
 class AdicaoCurso extends React.Component {
     state = {
         cursos: [
@@ -57,6 +59,7 @@ class AdicaoCurso extends React.Component {
     }
     
     render() {
+
         return <form className="depoimento-conteiner" 
             onSubmit={(e) => {
                 e.preventDefault();
