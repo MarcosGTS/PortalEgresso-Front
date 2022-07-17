@@ -31,6 +31,8 @@ class Egressos extends React.Component {
     }
     
     render() {
+        const egressos = this.state.egressos.filter(egresso => egresso.cursoEgressoAssoc.length > 0)
+
         return (
             <div className="home">
                 <div className="hero-segment">
@@ -46,18 +48,15 @@ class Egressos extends React.Component {
 
                 <Tabela>
                     {
-                        this.state.egressos.map(egresso => {
+                        egressos.map(egresso => {
                             
-                            return <Link to={`/perfil/${egresso.id}`}>
-                                <div>{egresso.nome}</div>
-                                {/* <Linha
+                            return <Linha
                                 id = {egresso.id}
                                 nome = {egresso.nome}
                                 curso = {egresso.cursoEgressoAssoc[0].curso.nome || "Sem Curso"}
                                 nivel = {egresso.cursoEgressoAssoc[0].curso.nivel || "Sem Curso"}
                                 data = {egresso.cursoEgressoAssoc[0].data_conclusao || "xx/xx/xx"}
-                                /> */}
-                            </Link>
+                            />
                         
                         })
                     }
