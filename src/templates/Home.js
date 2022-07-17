@@ -30,8 +30,9 @@ class Home extends React.Component{
     render() {
         // Apenas depoimentos com depoimentos
         const depoimentos = this.state.depoimentos.filter(depoimento =>  depoimento.egresso.cursoEgressoAssoc)
-        const randomDepoimentos = pickRandom(depoimentos, 4);
-
+        let randomDepoimentos = pickRandom(depoimentos, 4);
+        randomDepoimentos = shuffleArray(randomDepoimentos);
+        
         return (
             <div className="home">
                 <div className="hero-segment"> 
@@ -46,7 +47,7 @@ class Home extends React.Component{
                 <div className="depoimento-segment">
                     <Carrossel>
                         {
-                            depoimentos.map(depoimento => {
+                            randomDepoimentos.map(depoimento => {
                                 const cursoAssoc = depoimento.egresso.cursoEgressoAssoc
                                 return <Depoimento
                                     src={depoimento.egresso.url_foto}
@@ -79,6 +80,15 @@ function pickRandom(arr, num = 4) {
     }
 
     return clone;
+}
+
+function shuffleArray(arr) {
+    let copy = [...arr]
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy
 }
 
 export default Home;

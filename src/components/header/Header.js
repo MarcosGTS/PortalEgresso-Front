@@ -50,9 +50,9 @@ function Header (props) {
             <header className="header">
                 <Link to="/"><img src={props.logo} className="logo" alt="logo"/></Link>
                 <ul className="header-list">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/depoimentos">Depoimentos</Link></li>
-                    <li><Link to="/egressos">Egressos</Link></li>
+                    <li><Link to="/" style={{ textDecoration: 'none' }}>Home</Link></li>
+                    <li><Link to="/depoimentos" style={{ textDecoration: 'none' }}>Depoimentos</Link></li>
+                    <li><Link to="/egressos" style={{ textDecoration: 'none' }}>Egressos</Link></li>
                 </ul>
                 <button onClick={e => window.location.href = "/login"}>Login</button>
             </header>
