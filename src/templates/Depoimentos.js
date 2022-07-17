@@ -48,6 +48,7 @@ class Depoimentos extends React.Component {
                         {
                             this.state.depoimentos.map( depoimento => {
                                 return (<Depoimento
+                                    href={`/perfil/${depoimento.egresso.id}`}
                                     src = {depoimento.egresso.url_foto}
                                     nome= {depoimento.egresso.nome}
                                     curso= "Ciencia da computacao"
