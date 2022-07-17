@@ -55,6 +55,7 @@ class Login extends React.Component {
             <LayoutComponentes>
                 <form className="login-form" 
                     onSubmit={(e) => {
+                        e.preventDefault();
                         this.login(this.state.email, this.state.senha);
                     }}>
 

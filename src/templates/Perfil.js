@@ -180,7 +180,6 @@ function Informacoes(props) {
         <Carrossel>
             {props.cursos.map(cursoAssoc => {
                 const curso = cursoAssoc.curso;
-                console.log(cursoAssoc);
                 return (<div>
                     <li><div className="highlight">Curso:</div> {curso.nome}</li>
                     <li><div className="highlight">Data Inicio:</div>{formatDate(cursoAssoc.data_inicio)}</li>

@@ -9,23 +9,12 @@ import Button from 'react-bootstrap/Button';
 
 import "./Perfil.css";
 
-import defaultImg from "../imgs/perfil_default.png";
 import edit from "../imgs/edit.png";
 import AdicaoProfissao from "./subTemplates/AdicaoProfissao";
+import EdicaoPerfil from "./subTemplates/EdicaoPerfil";
 
 class Configuracao extends React.Component {
     state = {
-        egresso: {
-            "id": 2,
-            "nome": "Postman",
-            "email": "postman@gmail.com",
-            "cpf": "232323232",
-            "resumo": "Postman resumo teste",
-            "url_foto": null,
-            "profissoes": [],
-            "contatos": [],
-            "cursoEgressoAssoc": []
-        },
         depoimento: {},
         modalCurso: false,
         modalCargo: false,
@@ -34,8 +23,8 @@ class Configuracao extends React.Component {
     constructor() {
         super();
         const apiToken = localStorage.getItem("Token");
-        this.egressoService = new EgressoService(apiToken);
         this.depoimentoService = new DepoimentoService(apiToken);
+        this.egressoService = new EgressoService(apiToken);
     }
     
     componentDidMount() {
@@ -43,8 +32,8 @@ class Configuracao extends React.Component {
 
         this.egressoService.obterEgressoCompleto(id)
             .then(response => {
-                console.log(response);
-                this.setState({egresso: response.data});
+                const egresso = response.data;
+                this.setState({egresso});
             })
             .catch(erro => {
                 console.log(erro);
@@ -68,8 +57,10 @@ class Configuracao extends React.Component {
     editarEgresso() {
         const id = localStorage.getItem("Id");
         const obj = this.state.egresso;
+        const apiToken = localStorage.getItem("Token");
+        const egressoService = new EgressoService(apiToken);
 
-        this.egressoService.editarEgresso(id, obj)
+        egressoService.editarEgresso(id, obj)
             .then(response => {
                 console.log(response)
             })
@@ -79,10 +70,11 @@ class Configuracao extends React.Component {
     }
 
     editarDepoimento() {
-        console.log(this.state);
         const obj =  this.state.depoimento;
+        const apiToken = localStorage.getItem("Token");
+        const depoimentoService = new DepoimentoService(apiToken);
 
-        this.depoimentoService.editarDepoimento(obj.id, obj)
+        depoimentoService.editarDepoimento(obj.id, obj)
             .then(response => {
                 console.log(response);
             })
@@ -92,13 +84,15 @@ class Configuracao extends React.Component {
     }
 
     render() {
+
+        if (!this.state.egresso) {
+            return <h2>Algo nao esperado ocorreu</h2>
+        }
+
         return <div className="home">
-            <div className="perfil-informacoes">
-                <div className="identificacao">
-                    <img src={this.state.egresso.url_foto || defaultImg}/>
-                    <h2>{this.state.egresso.nome}</h2>
-                </div>  
-            </div>
+            <EdicaoPerfil
+                egresso={this.state.egresso}
+            />
             
             <div className="perfil-depoimento">
                 <Paginacao>

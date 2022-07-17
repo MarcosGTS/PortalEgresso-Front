@@ -1,8 +1,8 @@
 import ApiService from "./ApiService";
 
 class DepoimentoService extends ApiService{
-    constructor (apiToken) {
-        super("/api/depoimentos", apiToken);
+    constructor(apiToken) {
+        super("api/depoimentos", apiToken);
     }
 
     obterTodosDepoimentos() {

@@ -6,9 +6,9 @@ const instance = axios.create({
 
 class ApiService {
     constructor(apiUrl, apiToken) {
-        this.apiUrl = apiUrl
-        instance.defaults.headers.post['Authorization'] = apiToken;
-        // instance.defaults.headers.put['Authorization'] = apiToken;
+        this.apiUrl = apiUrl;
+        instance.defaults.headers.post["Authorization"] = apiToken;
+        instance.defaults.headers.put["Authorization"] = apiToken;
     }
 
     put(url, objeto) {
@@ -17,6 +17,7 @@ class ApiService {
 
     post(url, objeto) {
         return instance.post(`${this.apiUrl}${url}`, objeto);
+
     }
 
     get(url) {
