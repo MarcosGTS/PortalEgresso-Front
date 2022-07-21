@@ -12,12 +12,19 @@ import "./Perfil.css";
 import edit from "../imgs/edit.png";
 import AdicaoProfissao from "./subTemplates/AdicaoProfissao";
 import EdicaoPerfil from "./subTemplates/EdicaoPerfil";
+import AdicaoDepoimento from "./subTemplates/AdicaoDepoimento";
+import EditarCurso from "./subTemplates/EditarCurso";
+import GerenricCard from "../components/GenericCard";
 
 class Configuracao extends React.Component {
     state = {
         depoimento: {},
         modalCurso: false,
         modalCargo: false,
+        modalDepoimento: false,
+        modalEditarCurso: {
+            modal: false, 
+        }
     }
 
     constructor() {
@@ -84,7 +91,7 @@ class Configuracao extends React.Component {
     }
 
     render() {
-
+        
         if (!this.state.egresso) {
             return <h2>Algo nao esperado ocorreu</h2>
         }
@@ -113,7 +120,12 @@ class Configuracao extends React.Component {
                     </div>
                     <div name="Depoimento">
                         <button className="edit-button"
-                        onClick={() => this.editarDepoimento()}
+                        onClick={() => {
+                            if (!this.state.depoimento.texto) 
+                                this.setState({modalDepoimento: true})
+                            else 
+                                this.editarDepoimento()        
+                        }}
                         >
                             <img src={edit}/>
                         </button>
@@ -137,17 +149,25 @@ class Configuracao extends React.Component {
                 <div>
                     {this.state.egresso.cursoEgressoAssoc.map(cursoAssoc => {
                         const curso = cursoAssoc.curso;
-                        return (<div className="depoimento-conteiner">
-                            <div><span className="highlight" >Curso:</span>
-                                {curso.nome}
-                            </div> 
-                            <div><span className="highlight" >Data Inicio:</span>
-                                {formatDate(cursoAssoc.data_inicio)}
-                            </div> 
-                            <div><span className="highlight" >Data Conclusao:</span>
-                                {formatDate(cursoAssoc.data_conclusao)}
-                            </div> 
-                        </div>)
+                        const dataInicio = formatDate(cursoAssoc.data_inicio);
+                        const dataConclusao = formatDate(cursoAssoc.data_conclusao);
+
+                        return <div onClick = {() => {
+                            const {modalEditarCurso} = this.state;
+                            modalEditarCurso.cursoAssoc = cursoAssoc; 
+                            modalEditarCurso.modal = true;
+                            this.setState({modalEditarCurso})
+                            }}
+                            style={{cursor: "pointer"}}
+                        >
+                            <GerenricCard
+                                title = {curso.nome}
+                                subTitle = {curso.nivel}
+                            >
+                                <div><span>Data Inicio:</span> {dataInicio}</div>
+                                <div><span>Data Conclusao:</span> {dataConclusao}</div>
+                            </GerenricCard>
+                        </div>
                     })}
                 </div>
             </div>
@@ -188,13 +208,37 @@ class Configuracao extends React.Component {
             >
                 <AdicaoProfissao/>
             </ModalCentralizado>
+
+            <ModalCentralizado 
+                titulo="Adicionar Depoimento"
+                show={this.state.modalDepoimento}
+                onHide={() => {
+                    this.setState({modalDepoimento: false})
+                }}
+            >
+                <AdicaoDepoimento/>
+            </ModalCentralizado>
+
+            <ModalCentralizado 
+                titulo="Editar Curso"
+                show={this.state.modalEditarCurso.modal}
+                onHide={() => {
+                    const {modalEditarCurso} = this.state;
+                    modalEditarCurso.modal = false
+                    this.setState({modalEditarCurso})
+                }}
+            >
+                <EditarCurso cursoAssoc={this.state.modalEditarCurso.cursoAssoc}/>
+            </ModalCentralizado>
         </div>   
     }
 
 }
 
 function formatDate(datas) {
-    return `${datas[2]}/${datas[1]}/${datas[0]}`;
+    const ano = `${datas[0]}`;
+    const mes = `${datas[1]}`.padStart(2, "0");
+    const dia = `${datas[2]}`.padStart(2, "0");
+    return `${dia}/${mes}/${ano}`;
 }
-
 export default Configuracao;

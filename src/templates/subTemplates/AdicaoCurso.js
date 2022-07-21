@@ -3,8 +3,6 @@ import "../../components/depoimento/Depoimento.css";
 import CursoService from "../../services/CursoService";
 import EgressoService from "../../services/EgressoService";
 
-import Modal from 'react-bootstrap/Modal';
-
 class AdicaoCurso extends React.Component {
     state = {
         cursos: [

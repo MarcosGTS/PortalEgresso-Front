@@ -42,7 +42,7 @@ class Login extends React.Component {
                 const token = response.data["Token"];
                 localStorage.setItem("Token", token);
 
-                // window.location.href = "/config";
+                window.location.href = "/config";
             })
             .catch(erro => {
                 console.log(erro);

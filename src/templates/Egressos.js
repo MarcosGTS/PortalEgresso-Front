@@ -1,10 +1,12 @@
 import Tabela from "../components/tabela/Tabela";
 import Linha from "../components/tabela/Linha";
-import { Link } from "react-router-dom";
 
 import './Home.css'
 import React from "react";
 import EgressoService from "../services/EgressoService";
+import Chart from "react-google-charts";
+import CargoService from "../services/CargoService";
+import FaixaSalarioService from "../services/FaixaSalarioService";
 
 class Egressos extends React.Component {
     
@@ -15,7 +17,9 @@ class Egressos extends React.Component {
         this.service = new EgressoService(apiToken);
         
         this.state = {
-            egressos:[],
+            egressos: [],
+            cargosData: [],
+            faixaSalarioData: [],
         }
     }
 
@@ -27,12 +31,46 @@ class Egressos extends React.Component {
             })
             .catch(erro => {
                 console.log(erro);
-            })   
+            })
+        
+        const cargoService = new CargoService();
+        
+        cargoService.obterEstattisticas()
+            .then(response => {
+                this.setState({cargosData: response.data})
+            })
+            .catch(erro => {
+                alert(erro);
+            })
+        
+        const faixaService = new FaixaSalarioService();
+
+        faixaService.obterEstatisticas()
+            .then(response => {
+                console.log(response.data)
+                this.setState({faixaSalarioData: response.data})
+            })
+            .catch(erro => {
+                console.log(erro)
+            })
+    
     }
     
     render() {
-        const egressos = this.state.egressos.filter(egresso => egresso.cursoEgressoAssoc.length > 0)
+        const egressos = this.state.egressos.filter(egresso => egresso.cursoEgressoAssoc.length > 0)    
 
+        const {cargosData, faixaSalarioData} = this.state;
+        
+        const graficoCargo = [["Cargo", "Qtd. Egressos"]];
+        for(let cargo of cargosData) {
+            graficoCargo.push([cargo.label, cargo.value]);
+        }
+
+        const graficoFaixaSalario = [["Faixa Salarial", "Qtd. Egressos"]];
+        for(let faixa of faixaSalarioData) {
+            graficoFaixaSalario.push([faixa.label, faixa.value]);
+        }
+        
         return (
             <div className="home">
                 <div className="hero-segment">
@@ -44,6 +82,20 @@ class Egressos extends React.Component {
                 
                 <div className="depoimento-segment">
                     <h2>Estatisticas</h2>
+                    <Chart 
+                    chartType="ColumnChart" 
+                    width="100%" 
+                    height="400px" 
+                    data={graficoCargo}/>
+                    <Chart 
+                    chartType="PieChart" 
+                    width="100%" 
+                    height="400px" 
+                    data={graficoFaixaSalario}
+                    options={
+                        {pieHole: 0.4}
+                    }
+                    />
                 </div>
 
                 <Tabela>
@@ -53,9 +105,9 @@ class Egressos extends React.Component {
                             return <Linha
                                 id = {egresso.id}
                                 nome = {egresso.nome}
-                                curso = {egresso.cursoEgressoAssoc[0].curso.nome || "Sem Curso"}
-                                nivel = {egresso.cursoEgressoAssoc[0].curso.nivel || "Sem Curso"}
-                                data = {egresso.cursoEgressoAssoc[0].data_conclusao || "xx/xx/xx"}
+                                curso = {egresso.cursoEgressoAssoc[0].curso.nome}
+                                nivel = {egresso.cursoEgressoAssoc[0].curso.nivel}
+                                data = {egresso.cursoEgressoAssoc[0].data_conclusao}
                             />
                         
                         })

@@ -9,6 +9,14 @@ class FaixaSalarioService extends ApiService {
         return this.get('/');
     }
 
+    quantitativoEgresso(id) {
+        return this.get(`/${id}`);
+    }
+
+    obterEstatisticas() {
+        return this.get("/estatisticas");
+    }
+
 }
 
 export default FaixaSalarioService;

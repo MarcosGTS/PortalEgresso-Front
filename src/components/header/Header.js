@@ -1,15 +1,11 @@
 import "./Header.css";
 import Dropdown from 'react-bootstrap/Dropdown';
 import defaultImg from "../../imgs/perfil_default.png";
-
-
 import { Link } from "react-router-dom";
 
 function Header (props) {
     const id = localStorage.getItem("Id");
-    let foto = localStorage.getItem("Foto");
-    
-    if (foto == "null") foto = defaultImg;
+    let foto = localStorage.getItem("Foto") || defaultImg;
 
     if (localStorage.getItem("Token")) {
         

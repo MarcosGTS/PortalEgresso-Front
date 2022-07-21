@@ -6,7 +6,15 @@ class CargoService extends ApiService {
     }
 
     obterTodosCargos() {
-        return this.get('/');
+        return this.get("/");
+    }
+
+    quantitativoEgresso(id) {
+        return this.get(`/${id}`);
+    }
+
+    obterEstattisticas() {
+        return this.get("/estatisticas");
     }
 
 }
