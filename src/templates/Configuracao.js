@@ -3,7 +3,6 @@ import Paginacao from "../components/paginacao/Paginacao";
 import EgressoService from "../services/EgressoService";
 import DepoimentoService from "../services/DepoimentoService";
 import AdicaoCurso from "./subTemplates/AdicaoCurso";
-import CartaExperiencia from "../components/cartaExperiencia/CartaExperiencia";
 import ModalCentralizado from "../components/ModalCentralizado";
 import Button from 'react-bootstrap/Button';
 
@@ -14,6 +13,7 @@ import AdicaoProfissao from "./subTemplates/AdicaoProfissao";
 import EdicaoPerfil from "./subTemplates/EdicaoPerfil";
 import AdicaoDepoimento from "./subTemplates/AdicaoDepoimento";
 import EditarCurso from "./subTemplates/EditarCurso";
+import EditarCargo from "./subTemplates/EditarCargo";
 import GerenricCard from "../components/GenericCard";
 
 class Configuracao extends React.Component {
@@ -23,6 +23,9 @@ class Configuracao extends React.Component {
         modalCargo: false,
         modalDepoimento: false,
         modalEditarCurso: {
+            modal: false, 
+        },
+        modalEditarCargo: {
             modal: false, 
         }
     }
@@ -177,14 +180,34 @@ class Configuracao extends React.Component {
                     this.setState({modalCargo: true})
                 }}>Adicionar Cargo</Button>
 
-                <h2>Experiencias</h2>
                 <div>
                     {this.state.egresso.profissoes.map(prof => {
-                        return <CartaExperiencia
-                        cargo={prof.cargo.nome}
-                        faixaSalario={prof.faixaSalario.descricao}
-                        descricao={prof.descricao}    
-                        />
+                        const cargo = prof.cargo.nome;
+                        const faixaSalarial = prof.faixaSalario.descricao;
+                        const descricao = prof.descricao;
+                        const empresa = prof.empresa;
+
+                        return <div
+                            onClick = {() => {
+                                const {modalEditarCargo} = this.state;
+                                modalEditarCargo.prof = prof; 
+                                modalEditarCargo.modal = true;
+                                this.setState({modalEditarCargo})
+                            }}
+                            style={{
+                                cursor: "pointer",
+                            }}
+                        >
+                        <GerenricCard
+                            title={cargo}
+                            subTitle={faixaSalarial}
+                            description={descricao}
+                        >
+                            <div>{empresa}</div>
+                            <div></div>
+                        </GerenricCard>
+                        </div>
+                        
                     })}
                 </div>
             </div>
@@ -229,6 +252,18 @@ class Configuracao extends React.Component {
                 }}
             >
                 <EditarCurso cursoAssoc={this.state.modalEditarCurso.cursoAssoc}/>
+            </ModalCentralizado>
+
+            <ModalCentralizado 
+                titulo="Editar Cargo"
+                show={this.state.modalEditarCargo.modal}
+                onHide={() => {
+                    const {modalEditarCargo} = this.state;
+                    modalEditarCargo.modal = false
+                    this.setState({modalEditarCargo})
+                }}
+            >
+                <EditarCargo prof={this.state.modalEditarCargo.prof}/>
             </ModalCentralizado>
         </div>   
     }

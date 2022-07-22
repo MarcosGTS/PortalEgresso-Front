@@ -102,12 +102,13 @@ class Egressos extends React.Component {
                     {
                         egressos.map(egresso => {
                             
+                            const data = egresso.cursoEgressoAssoc[0].data_conclusao;
                             return <Linha
                                 id = {egresso.id}
                                 nome = {egresso.nome}
                                 curso = {egresso.cursoEgressoAssoc[0].curso.nome}
                                 nivel = {egresso.cursoEgressoAssoc[0].curso.nivel}
-                                data = {egresso.cursoEgressoAssoc[0].data_conclusao}
+                                data = {formatDate(data)}
                             />
                         
                         })
@@ -116,6 +117,13 @@ class Egressos extends React.Component {
             </div>
         )
     }
+}
+
+function formatDate(datas) {
+    const ano = `${datas[0]}`;
+    const mes = `${datas[1]}`.padStart(2, "0");
+    const dia = `${datas[2]}`.padStart(2, "0");
+    return `${dia}/${mes}/${ano}`;
 }
 
 export default Egressos;

@@ -4,8 +4,8 @@ import Card from 'react-bootstrap/Card';
 function GerenricCard(props) {
     const title = props.title || "Title";
     const subTitle = props.subTitle;
-    const descricao = props.descricao;
-    const children = props.children
+    const description = props.description;
+    const children = props.children || [];
 
     return (  
     <Card style={{ width: '18rem' }}>
@@ -15,7 +15,7 @@ function GerenricCard(props) {
         {children.map(e => {
             return e
         })}
-        <Card.Text>{descricao}</Card.Text>
+        <Card.Text>{description}</Card.Text>
       </Card.Body>
     </Card>
   );

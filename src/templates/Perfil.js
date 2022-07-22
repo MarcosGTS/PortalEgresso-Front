@@ -9,6 +9,7 @@ import "./Perfil.css";
 import defaultImg from "../imgs/perfil_default.png";
 import { useParams } from "react-router-dom";
 import CartaExperiencia from "../components/cartaExperiencia/CartaExperiencia";
+import GerenricCard from "../components/GenericCard";
 
 export function withRoute(Children) {
     return (props) => {
@@ -159,11 +160,19 @@ class Perfil extends React.Component {
                 <h2>Experiencias</h2>
                 <div>
                     {this.state.egresso.profissoes.map(prof => {
-                        return <CartaExperiencia
-                        cargo={prof.cargo.nome}
-                        faixaSalario={prof.faixaSalario.descricao}
-                        descricao={prof.descricao}    
-                        />
+                        const cargo = prof.cargo.nome;
+                        const faixaSalarial = prof.faixaSalario.descricao;
+                        const descricao = prof.descricao;
+                        const empresa = prof.empresa;
+
+                        return <GerenricCard
+                            title={cargo}
+                            subTitle={faixaSalarial}
+                            description={descricao}
+                        >
+                            <div>{empresa}</div>
+                            <div></div>
+                        </GerenricCard>
                     })}
                 </div>
             </div>
@@ -192,7 +201,10 @@ function Informacoes(props) {
 }
 
 function formatDate(datas) {
-    return `${datas[2]}/${datas[1]}/${datas[0]}`;
+    const ano = `${datas[0]}`;
+    const mes = `${datas[1]}`.padStart(2, "0");
+    const dia = `${datas[2]}`.padStart(2, "0");
+    return `${dia}/${mes}/${ano}`;
 }
 
 export default withRoute(Perfil);
