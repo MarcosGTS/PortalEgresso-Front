@@ -1,5 +1,6 @@
 import React from "react";
 import CargoService from "../../services/CargoService";
+import EgressoService from "../../services/EgressoService";
 import FaixaSalarioService from "../../services/FaixaSalarioService";
 
 class EditarCargo extends React.Component {
@@ -11,6 +12,7 @@ class EditarCargo extends React.Component {
 
     componentDidMount() {
         const prof = this.props.prof;
+        const profId = prof.id;
         const cargoId = prof.cargo.id;
         const faixaId = prof.faixaSalario.id;
         const prevCargoId = prof.cargo.id;
@@ -18,6 +20,7 @@ class EditarCargo extends React.Component {
         const empresa = prof.empresa;
         const dataRegistro = prof.data_registro;
         
+        this.setState({profId})
         this.setState({prevCargoId});
         this.setState({cargoId});
         this.setState({faixaId});
@@ -47,6 +50,28 @@ class EditarCargo extends React.Component {
                 alert(`${erro}`);
             })
     }
+
+    editarCargo() {
+        const {profId} = this.state
+        const apiToken = localStorage.getItem("Token");
+        const service = new EgressoService(apiToken);
+
+        const obj = {
+            nomeEmpresa:    this.state.empresa,
+            descricao:      this.state.descricao,
+            cargoId:        this.state.cargoId,
+            dataRegistro:   this.state.dataRegistro,
+            faixaSalarioId: this.state.faixaId,   
+        };
+
+        service.editarCargo(profId, obj)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(erro => {
+                alert(erro);
+            })
+    }
     
     render() { 
         const {cargos} = this.state;
@@ -58,9 +83,16 @@ class EditarCargo extends React.Component {
         const {descricao} = this.state;
         const {dataRegistro} = this.state;
 
-        return <form>
-            <input placeholder="Empresa"
+        return <form onSubmit={(e) => {
+            e.preventDefault();
+            this.editarCargo();
+        }}>
+            <input 
+                placeholder="Empresa"
                 value={empresa}
+                onChange={(e) =>{
+                    this.setState({empresa: e.target.value})
+                }}
             />
 
             <select
@@ -100,6 +132,8 @@ class EditarCargo extends React.Component {
                     this.setState({descricao: e.target.value})
                 }}
             />
+
+            <button>Editar</button>
         </form>
     }  
             

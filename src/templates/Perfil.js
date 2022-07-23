@@ -8,7 +8,6 @@ import "./Perfil.css";
 
 import defaultImg from "../imgs/perfil_default.png";
 import { useParams } from "react-router-dom";
-import CartaExperiencia from "../components/cartaExperiencia/CartaExperiencia";
 import GerenricCard from "../components/GenericCard";
 
 export function withRoute(Children) {
@@ -165,7 +164,8 @@ class Perfil extends React.Component {
                         const descricao = prof.descricao;
                         const empresa = prof.empresa;
 
-                        return <GerenricCard
+                        return <div>
+                        <GerenricCard
                             title={cargo}
                             subTitle={faixaSalarial}
                             description={descricao}
@@ -173,6 +173,7 @@ class Perfil extends React.Component {
                             <div>{empresa}</div>
                             <div></div>
                         </GerenricCard>
+                        </div>
                     })}
                 </div>
             </div>

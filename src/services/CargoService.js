@@ -17,6 +17,10 @@ class CargoService extends ApiService {
         return this.get("/estatisticas");
     }
 
+    editarCargo(egressoId, obj) {
+        return this.post(`/editar/${egressoId}/cargo`, obj);
+    }
+
 }
 
 export default CargoService;
