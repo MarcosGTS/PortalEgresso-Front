@@ -87,9 +87,10 @@ class Configuracao extends React.Component {
         depoimentoService.editarDepoimento(obj.id, obj)
             .then(response => {
                 console.log(response);
+                window.location.reload(false);
             })
             .catch(erro => {
-                console.log(erro);
+                alert(`${erro}`);
             })
     }
 
@@ -107,11 +108,11 @@ class Configuracao extends React.Component {
             <div className="perfil-depoimento">
                 <Paginacao>
                     <div name="Resumo">
-                        <button className="edit-button"
+                        <Button
                             onClick={() => this.editarEgresso()}
                         >
-                            <img src={edit}/>
-                        </button>
+                            Salvar
+                        </Button>
                         <textarea
                             value={this.state.egresso.resumo}
                             onChange={(e) => {
@@ -122,7 +123,7 @@ class Configuracao extends React.Component {
                         />
                     </div>
                     <div name="Depoimento">
-                        <button className="edit-button"
+                        <Button
                         onClick={() => {
                             if (!this.state.depoimento.texto) 
                                 this.setState({modalDepoimento: true})
@@ -130,8 +131,8 @@ class Configuracao extends React.Component {
                                 this.editarDepoimento()        
                         }}
                         >
-                            <img src={edit}/>
-                        </button>
+                            {this.state.depoimento.texto ? "Salvar" : "Adicionar"}
+                        </Button>
                         <textarea
                             value={this.state.depoimento.texto}
                             onChange={(e) => {
@@ -145,9 +146,13 @@ class Configuracao extends React.Component {
             </div>
 
             <div className="perfil-experiencias">
-                <Button onClick={() => {
-                    this.setState({modalCurso: true})
-                }}>Adicionar Curso</Button>
+                <div style={{width: "fit-content"}}>
+                    <Button onClick={() => {
+                        this.setState({modalCurso: true})
+                        }}
+                        size="lg"
+                    >Adicionar Curso</Button>
+                </div>
 
                 <div>
                     {this.state.egresso.cursoEgressoAssoc.map(cursoAssoc => {
@@ -176,10 +181,14 @@ class Configuracao extends React.Component {
             </div>
 
             <div className="perfil-experiencias">
-                <Button onClick={() => {
-                    this.setState({modalCargo: true})
-                }}>Adicionar Cargo</Button>
-
+                <div style={{width: "fit-content"}}>
+                    <Button onClick={() => {
+                        this.setState({modalCargo: true})
+                        }}
+                        size="lg"
+                    >Adicionar Cargo</Button>
+                </div>
+                
                 <div>
                     {this.state.egresso.profissoes.map(prof => {
                         const cargo = prof.cargo.nome;

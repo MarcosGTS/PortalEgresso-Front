@@ -67,6 +67,7 @@ class EditarCargo extends React.Component {
         service.editarCargo(profId, obj)
             .then(response => {
                 console.log(response.data);
+                window.location.reload(false);
             })
             .catch(erro => {
                 alert(erro);
@@ -84,10 +85,17 @@ class EditarCargo extends React.Component {
         const {dataRegistro} = this.state;
 
         return <form onSubmit={(e) => {
-            e.preventDefault();
-            this.editarCargo();
-        }}>
+                e.preventDefault();
+                this.editarCargo();
+            }}
+            style={{
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
+            <label for="empresa">Empresa: </label>
             <input 
+                id="empresa"
                 placeholder="Empresa"
                 value={empresa}
                 onChange={(e) =>{
@@ -95,7 +103,9 @@ class EditarCargo extends React.Component {
                 }}
             />
 
+            <label for="cargo">Cargo: </label>
             <select
+                id="cargo"
                 onChange={(e) => {
                     this.setState({cargoId: e.target.value})
                 }}
@@ -106,7 +116,9 @@ class EditarCargo extends React.Component {
                 })}
             </select>
 
+            <label for="faixa">Faixa Salarial:</label>
             <select
+                id="faixa"
                 onChange={(e) => {
                     this.setState({faixaId: e.target.value})
                 }}
@@ -117,7 +129,9 @@ class EditarCargo extends React.Component {
                 })}
             </select>
 
+            <label for="registro">Data de Registro: </label>
             <input 
+                id="registro"
                 type="date" 
                 value={dataRegistro}
                 onChange={(e) => {

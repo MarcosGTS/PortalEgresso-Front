@@ -44,7 +44,7 @@ class EditarCurso extends React.Component {
 
         service.editarCurso(egressoId, cursoId, prevCursoId, obj)
             .then(response => {
-                console.log(response);
+                console.log(response.data);
                 window.location.reload(false);
             })
             .catch(erro => {
@@ -80,7 +80,7 @@ class EditarCurso extends React.Component {
                     return <option value={curso.id}>{curso.nome}</option>
                 })}
             </select>
-            <lable for="data-inicio">Data Inicio: </lable>
+            <label for="data-inicio">Data Inicio: </label>
             <input 
                 id="data-inicio"
                 type="date" defaultValue={dataInicio}

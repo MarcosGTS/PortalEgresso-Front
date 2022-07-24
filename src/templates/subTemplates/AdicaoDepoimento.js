@@ -22,7 +22,7 @@ class AdicaoDepoimento extends React.Component {
                 window.location.reload(false);
             })
             .catch(erro => {
-                console.log(erro);
+                alert(`${erro}`);
             })
     }
     
@@ -37,6 +37,7 @@ class AdicaoDepoimento extends React.Component {
                     onChange={(e) => {
                         this.setState({texto: e.target.value})
                     }}
+                    required
                 /> 
                 <button>Adicionar</button>
             </form>

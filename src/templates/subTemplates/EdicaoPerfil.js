@@ -23,9 +23,10 @@ class EdicaoPerfil extends React.Component{
         this.service.editarEgresso(obj.id, obj)
             .then(response => {
                 console.log(response)
+                window.location.reload(false);
             })
             .catch(erro => {
-                console.log(erro)
+                alert(`${erro}`)
             })
     }
 
@@ -54,6 +55,7 @@ class EdicaoPerfil extends React.Component{
                                 egresso.nome = e.target.value;
                                 this.setState({egresso});
                             }}
+                            required
                         />
                         <input 
                             placeholder="Email"
@@ -62,6 +64,7 @@ class EdicaoPerfil extends React.Component{
                                 egresso.email = e.target.value;
                                 this.setState({egresso});
                             }}
+                            required
                         />
                         <input 
                             placeholder="Cpf"
@@ -70,6 +73,7 @@ class EdicaoPerfil extends React.Component{
                                 egresso.cpf = e.target.value;
                                 this.setState({egresso});
                             }}
+                            required
                         />
 
                         <Button 

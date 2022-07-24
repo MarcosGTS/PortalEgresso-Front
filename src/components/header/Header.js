@@ -2,6 +2,7 @@ import "./Header.css";
 import Dropdown from 'react-bootstrap/Dropdown';
 import defaultImg from "../../imgs/perfil_default.png";
 import { Link } from "react-router-dom";
+import { Image } from "react-bootstrap";
 
 function Header (props) {
     const id = localStorage.getItem("Id");
@@ -13,14 +14,14 @@ function Header (props) {
             <header className="header">
                 <Link to="/"><img src={props.logo} className="logo" alt="logo"/></Link>
                 <ul className="header-list">
-                    <li><Link to="/" style={{ textDecoration: 'none' }}>Home</Link></li>
-                    <li><Link to="/depoimentos" style={{ textDecoration: 'none' }}>Depoimentos</Link></li>
-                    <li><Link to="/egressos" style={{ textDecoration: 'none' }}>Egressos</Link></li>
+                    <li><Link to="/" style={{ textDecoration: 'none', color: 'whitesmoke' }}>Home</Link></li>
+                    <li><Link to="/depoimentos" style={{ textDecoration: 'none', color: 'whitesmoke' }}>Depoimentos</Link></li>
+                    <li><Link to="/egressos" style={{ textDecoration: 'none', color: 'whitesmoke' }}>Egressos</Link></li>
                 </ul>
                 
                 <Dropdown>
                     <Dropdown.Toggle id="dropdown-basic">
-                        <img src={foto} className="foto-perfil"/>
+                        <Image src={foto} className="foto-perfil" roundedCircle/>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
@@ -46,9 +47,9 @@ function Header (props) {
             <header className="header">
                 <Link to="/"><img src={props.logo} className="logo" alt="logo"/></Link>
                 <ul className="header-list">
-                    <li><Link to="/" style={{ textDecoration: 'none' }}>Home</Link></li>
-                    <li><Link to="/depoimentos" style={{ textDecoration: 'none' }}>Depoimentos</Link></li>
-                    <li><Link to="/egressos" style={{ textDecoration: 'none' }}>Egressos</Link></li>
+                    <li><Link to="/" style={{ textDecoration: 'none', color: 'whitesmoke' }}>Home</Link></li>
+                    <li><Link to="/depoimentos" style={{ textDecoration: 'none', color: 'whitesmoke' }}>Depoimentos</Link></li>
+                    <li><Link to="/egressos" style={{ textDecoration: 'none', color: 'whitesmoke' }}>Egressos</Link></li>
                 </ul>
                 <button onClick={e => window.location.href = "/login"}>Login</button>
             </header>

@@ -80,22 +80,31 @@ class Egressos extends React.Component {
                     </div>
                 </div>
                 
-                <div className="depoimento-segment">
+                <div className="depoimento-segment"
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "800px",
+                        justifyContent: "space-evenly",
+                    }}
+                >
                     <h2>Estatisticas</h2>
-                    <Chart 
-                    chartType="ColumnChart" 
-                    width="100%" 
-                    height="400px" 
-                    data={graficoCargo}/>
+                    
                     <Chart 
                     chartType="PieChart" 
-                    width="100%" 
-                    height="400px" 
+                    width="600px" 
+                    height="300px" 
                     data={graficoFaixaSalario}
                     options={
                         {pieHole: 0.4}
-                    }
-                    />
+                    }/>
+                
+                    <Chart 
+                    chartType="ColumnChart" 
+                    width="600px" 
+                    height="300px" 
+                    data={graficoCargo}/>
+                    
                 </div>
 
                 <Tabela>

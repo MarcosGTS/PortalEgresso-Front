@@ -6,9 +6,9 @@ function ModalCentralizado(props) {
   return (
     <Modal
       {...props}
-      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      className='me-10'
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -19,7 +19,7 @@ function ModalCentralizado(props) {
         {props.children}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide}>Fechar</Button>
       </Modal.Footer>
     </Modal>
   );

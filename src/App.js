@@ -14,7 +14,6 @@ import logo from "./imgs/logo_ufma.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function App() {
   return <>
     <Header logo={logo}/>

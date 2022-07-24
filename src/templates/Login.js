@@ -45,7 +45,7 @@ class Login extends React.Component {
                 window.location.href = "/config";
             })
             .catch(erro => {
-                console.log(erro);
+                alert(`${erro}`);
             })
     }
 
@@ -66,20 +66,24 @@ class Login extends React.Component {
     
                     <div className="wrap-input">
                         <input
+                            style={{color: "whitesmoke"}}
                             className={this.state.email !== "" ? 'has-val input' : 'input'}
                             type="email"
                             value={this.state.email}
                             onChange={e => this.setState({email: e.target.value})}
+                            required
                         />
                         <span className="focus-input" data-placeholder="Email"></span>
                     </div>
     
                     <div className="wrap-input">
                         <input
+                            style={{color: "whitesmoke"}}
                             className={this.state.senha !== "" ? 'has-val input' : 'input'}
                             type="password"
                             value={this.state.senha}
                             onChange={e => this.setState({senha: e.target.value})}
+                            required
                         />
                         <span className="focus-input" data-placeholder="password"></span>
                     </div>

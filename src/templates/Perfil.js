@@ -9,6 +9,7 @@ import "./Perfil.css";
 import defaultImg from "../imgs/perfil_default.png";
 import { useParams } from "react-router-dom";
 import GerenricCard from "../components/GenericCard";
+import SideSlider from "../components/SideSlider";
 
 export function withRoute(Children) {
     return (props) => {
@@ -134,6 +135,10 @@ class Perfil extends React.Component {
     }
 
     render() {
+
+        const depoimento = this.state.depoimento;
+        const resumo = this.state.egresso.resumo;
+
         return <div className="home">
             <div className="perfil-informacoes">
                 <div className="identificacao">
@@ -147,13 +152,9 @@ class Perfil extends React.Component {
             </div>
             <div className="perfil-depoimento">
                 <Paginacao>
-                    <div name="Resumo">
-                        {this.state.egresso.resumo}
-                    </div>
-                    <div name="Depoimento">
-                        {this.state.depoimento.texto}
-                    </div>
-                </Paginacao>
+                    <div name="Resumo">{resumo}</div>
+                    <div name="Depoimento">{depoimento.texto}</div>
+                </Paginacao>   
             </div>
             <div className="perfil-experiencias">
                 <h2>Experiencias</h2>
