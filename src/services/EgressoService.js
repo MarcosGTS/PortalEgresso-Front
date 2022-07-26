@@ -40,6 +40,14 @@ class EgressoService extends ApiService{
     editarCargo(egressoId, obj) {
         return this.post(`/editar/${egressoId}/cargo`, obj);
     }
+
+    adicionarContato(idEgresso, idContato, obj) {
+        return this.post(`/${idEgresso}/contato/${idContato}`, obj)
+    }
+
+    editarContato(idEgresso, idContato, idNovoContato, obj) {
+        return this.post(`/editar/${idEgresso}/contato/${idContato}/${idNovoContato}`, obj)
+    }
 }
 
 export default EgressoService;

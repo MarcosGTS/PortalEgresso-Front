@@ -8,13 +8,16 @@ import Button from 'react-bootstrap/Button';
 
 import "./Perfil.css";
 
-import edit from "../imgs/edit.png";
 import AdicaoProfissao from "./subTemplates/AdicaoProfissao";
 import EdicaoPerfil from "./subTemplates/EdicaoPerfil";
 import AdicaoDepoimento from "./subTemplates/AdicaoDepoimento";
 import EditarCurso from "./subTemplates/EditarCurso";
 import EditarCargo from "./subTemplates/EditarCargo";
 import GerenricCard from "../components/GenericCard";
+import GenericList from "../components/ListGroup";
+import { Image } from "react-bootstrap";
+import AdicaoContato from "./subTemplates/AdicaoContato";
+import EditarContato from "./subTemplates/EditarContato";
 
 class Configuracao extends React.Component {
     state = {
@@ -22,6 +25,10 @@ class Configuracao extends React.Component {
         modalCurso: false,
         modalCargo: false,
         modalDepoimento: false,
+        modalContato: false,
+        modalEditarContato: {
+            modal: false, 
+        },
         modalEditarCurso: {
             modal: false, 
         },
@@ -62,6 +69,7 @@ class Configuracao extends React.Component {
             .catch(erro => {
                 console.log(erro)
             })
+        
     }
 
     editarEgresso() {
@@ -97,7 +105,33 @@ class Configuracao extends React.Component {
     render() {
         
         if (!this.state.egresso) {
-            return <h2>Algo nao esperado ocorreu</h2>
+            return <h2>Algo inesperado ocorreu</h2>
+        }
+
+        let contatos = [];
+
+        if (this.state.egresso.contatos) {
+            contatos = this.state.egresso.contatos.map(contatoAssoc => {
+                const contato = contatoAssoc.contato;
+                return <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                        minWidth: '150px',
+                        cursor: "pointer"
+                    }}
+
+                    onClick={() => {
+                        const {modalEditarContato} = this.state;
+                        modalEditarContato.contatoAssoc = contatoAssoc; 
+                        modalEditarContato.modal = true;
+                        this.setState({modalEditarContato})
+                    }}
+                >
+                    <Image src={contato.url_logo} roundedCircle style={{width: "50px", height: "auto"}}/>
+                    <a href={contatoAssoc.endereco}>{contato.nome}</a>
+                </div>
+            });
         }
 
         return <div className="home">
@@ -105,14 +139,29 @@ class Configuracao extends React.Component {
                 egresso={this.state.egresso}
             />
             
-            <div className="perfil-depoimento">
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}>
+
+                
+                <div style={{
+                    display: "flex", 
+                    flexDirection: "column",
+                    marginRight: "20%",
+                }}>
+                    <GenericList title="Contatos" list={contatos}/>
+                    <Button
+                        onClick={() => {
+                            this.setState({modalContato: true})
+                        }}
+                    >Adicionar</Button>
+                </div>
+                
                 <Paginacao>
                     <div name="Resumo">
-                        <Button
-                            onClick={() => this.editarEgresso()}
-                        >
-                            Salvar
-                        </Button>
+                        
                         <textarea
                             value={this.state.egresso.resumo}
                             onChange={(e) => {
@@ -121,8 +170,24 @@ class Configuracao extends React.Component {
                                 this.setState({egresso});
                             }}
                         />
+
+                        <Button
+                            onClick={() => this.editarEgresso()}
+                        >
+                            Salvar
+                        </Button>
                     </div>
+
                     <div name="Depoimento">
+                        <textarea
+                            value={this.state.depoimento.texto}
+                            onChange={(e) => {
+                                const depoimento = this.state.depoimento;
+                                depoimento.texto = e.target.value;
+                                this.setState({depoimento});
+                            }}
+                        />
+
                         <Button
                         onClick={() => {
                             if (!this.state.depoimento.texto) 
@@ -133,14 +198,6 @@ class Configuracao extends React.Component {
                         >
                             {this.state.depoimento.texto ? "Salvar" : "Adicionar"}
                         </Button>
-                        <textarea
-                            value={this.state.depoimento.texto}
-                            onChange={(e) => {
-                                const depoimento = this.state.depoimento;
-                                depoimento.texto = e.target.value;
-                                this.setState({depoimento});
-                            }}
-                        />
                     </div>
                 </Paginacao>
             </div>
@@ -252,6 +309,16 @@ class Configuracao extends React.Component {
             </ModalCentralizado>
 
             <ModalCentralizado 
+                titulo="Adicionar Contato"
+                show={this.state.modalContato}
+                onHide={() => {
+                    this.setState({modalContato: false})
+                }}
+            >
+                <AdicaoContato/>
+            </ModalCentralizado>
+
+            <ModalCentralizado 
                 titulo="Editar Curso"
                 show={this.state.modalEditarCurso.modal}
                 onHide={() => {
@@ -273,6 +340,18 @@ class Configuracao extends React.Component {
                 }}
             >
                 <EditarCargo prof={this.state.modalEditarCargo.prof}/>
+            </ModalCentralizado>
+
+            <ModalCentralizado 
+                titulo="Editar Contato"
+                show={this.state.modalEditarContato.modal}
+                onHide={() => {
+                    const {modalEditarContato} = this.state;
+                    modalEditarContato.modal = false
+                    this.setState({modalEditarContato})
+                }}
+            >
+                <EditarContato contatoAssoc={this.state.modalEditarContato.contatoAssoc}/>
             </ModalCentralizado>
         </div>   
     }

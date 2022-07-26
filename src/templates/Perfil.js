@@ -96,7 +96,7 @@ class Perfil extends React.Component {
             ]
         },
         depoimento: {
-            texto: "Teste depoimento"
+            texto: ""
         },
     }
 
@@ -123,8 +123,7 @@ class Perfil extends React.Component {
 
             this.depoimentoService.obterDepoimentoEgresso(id)
                 .then(response => {
-                    console.log(response.data);
-                    if (response.data.length > 1)
+                    if (response.data.length > 0)
                         this.setState({depoimento: response.data[0]});
                 })
                 .catch(erro => {

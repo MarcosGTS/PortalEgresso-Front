@@ -10,10 +10,18 @@ function Paginacao(props) {
         setIndex(children.indexOf(e.target));
     }
 
-    return (<div className="paginacao-container">
-        {children.map((child) =>
-            <button onClick={changeIndex}>{child.props.name}</button>
-        )}
+    return (<div className="paginacao-container"
+        style={{
+            backgroundColor: "#282c34",
+            margin: "50px 0"
+        }}
+    >
+        {children.map((child, i) => {
+            if(i === index) 
+                return <button onClick={changeIndex} style={{backgroundColor: "#0d6efd"}}>{child.props.name}</button>
+            
+            return <button onClick={changeIndex} style={{backgroundColor: "#666"}}>{child.props.name}</button>
+        })}
 
         <div>
             {props.children[index]}

@@ -2,6 +2,7 @@ import React from "react";
 import defaultImg from "../../imgs/perfil_default.png";
 import EgressoService from "../../services/EgressoService";
 import Button from 'react-bootstrap/Button';
+import { Image } from "react-bootstrap";
 
 class EdicaoPerfil extends React.Component{
     
@@ -36,7 +37,7 @@ class EdicaoPerfil extends React.Component{
             return (
                 <div className="perfil-informacoes">
                     <div className="identificacao">
-                        <img src={this.state.egresso.url_foto || defaultImg}/>
+                        <Image src={this.state.egresso.url_foto || defaultImg} roundedCircle/>
                         <input 
                             placeholder="Url"
                             value={egresso.url_foto}
@@ -47,7 +48,15 @@ class EdicaoPerfil extends React.Component{
                         />
                     </div>  
 
-                    <div className="depoimento-conteiner">
+                    <div className="depoimento-conteiner"
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-evenly",
+                            height: "50%",
+                            backgroundColor: "#282c34"
+                        }}
+                    >
                         <input 
                             placeholder="Nome"
                             value={egresso.nome} 
@@ -55,7 +64,6 @@ class EdicaoPerfil extends React.Component{
                                 egresso.nome = e.target.value;
                                 this.setState({egresso});
                             }}
-                            required
                         />
                         <input 
                             placeholder="Email"
@@ -64,7 +72,6 @@ class EdicaoPerfil extends React.Component{
                                 egresso.email = e.target.value;
                                 this.setState({egresso});
                             }}
-                            required
                         />
                         <input 
                             placeholder="Cpf"
@@ -73,7 +80,6 @@ class EdicaoPerfil extends React.Component{
                                 egresso.cpf = e.target.value;
                                 this.setState({egresso});
                             }}
-                            required
                         />
 
                         <Button 

@@ -48,14 +48,20 @@ class Home extends React.Component{
                     <Carrossel>
                         {
                             randomDepoimentos.map(depoimento => {
-                                const cursoAssoc = depoimento.egresso.cursoEgressoAssoc
-                                return <Depoimento
-                                    src={depoimento.egresso.url_foto}
-                                    nome={depoimento.egresso.nome}
-                                    curso={cursoAssoc[0].curso.nome}
-                                    depoimento={depoimento.texto}
+                                const cursosAssoc = depoimento.egresso.cursoEgressoAssoc;
+                                let curso = "";
+
+                                if (cursosAssoc && cursosAssoc.length > 0) 
+                                    curso = cursosAssoc[0].curso.nome;
+
+                                return (<Depoimento
                                     href={`/perfil/${depoimento.egresso.id}`}
-                                />
+                                    src = {depoimento.egresso.url_foto}
+                                    nome = {depoimento.egresso.nome}
+                                    curso = {curso}
+                                    depoimento={depoimento.texto}
+                                    data = {depoimento.data}
+                                />);
                             }  
                         )}
                     </Carrossel>

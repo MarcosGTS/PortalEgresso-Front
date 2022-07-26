@@ -29,8 +29,9 @@ class Depoimentos extends React.Component {
 
     filtrar(texto) {
         const depoimentos = [...this.state.depoimentos];
-       
+        
         if (texto) {
+            texto = texto.toLowerCase();
             const filtro = depoimentos.filter(depoimento => {
                 const nome = depoimento.egresso.nome;
                 const textoDepoimento = depoimento.texto;
@@ -45,6 +46,8 @@ class Depoimentos extends React.Component {
     }
 
     render() {
+        const filtrados = [...this.state.filtro];
+
         return (<>            
                 <div className="depoimentos-body"> 
                     <div className="apresentacao">
@@ -59,15 +62,29 @@ class Depoimentos extends React.Component {
                     <hr/>
                     <div className="container-depoimentos">
                         {
-                            this.state.filtro.map( depoimento => {
+                            filtrados.length > 0 ?
+                            filtrados.map( depoimento => {
+                                const cursosAssoc = depoimento.egresso.cursoEgressoAssoc;
+                                let curso = "";
+
+                                if (cursosAssoc && cursosAssoc.length > 0) 
+                                    curso = cursosAssoc[0].curso.nome;
+
                                 return (<Depoimento
                                     href={`/perfil/${depoimento.egresso.id}`}
                                     src = {depoimento.egresso.url_foto}
-                                    nome= {depoimento.egresso.nome}
-                                    curso= "Ciencia da computacao"
+                                    nome = {depoimento.egresso.nome}
+                                    curso = {curso}
                                     depoimento={depoimento.texto}
+                                    data = {depoimento.data}
                                 />);
                             })
+                            : <h2 
+                                style={{
+                                    color: "whitesmoke",
+                                    textAlign: "center",
+                                }}
+                            >Nenhum depoimento encontrado</h2>
                         }
                         
                     </div>
@@ -75,8 +92,7 @@ class Depoimentos extends React.Component {
             </>)
     
     }
-    
-    
+      
 }
 
 export default Depoimentos;
