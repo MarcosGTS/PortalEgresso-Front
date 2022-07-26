@@ -48,36 +48,57 @@ class EditarContato extends React.Component {
             })
     }
 
+    removerContato() {
+        const egressoId = localStorage.getItem("Id");
+        const apiToken = localStorage.getItem("Token");
+        const service = new EgressoService(apiToken);
+        const prevContatoId = this.state.prevContatoId;
+
+        service.removerContato(egressoId, prevContatoId)
+            .then(response => {
+                alert("Removido com sucesso")
+                window.location.reload();
+            })
+            .catch(erro => {
+                alert(`${erro}`);
+            })
+
+    }
+
     render() {
         const {contatos} = this.state;
         const {endereco} = this.state;
         const {contatoId} = this.state;
-        return <form
-            style={{
-                display: "flex",
-            }}
+        
+        return <>
+            <form
+                style={{
+                    display: "flex",
+                }}
 
-            onSubmit={(e) => {
-                e.preventDefault()
-                this.editarContato()
-            }}
-        >
-            <select
-                value={contatoId}
-                onChange={(e) => this.setState({contatoId: e.target.value})}
-                required
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    this.editarContato()
+                }}
             >
-                {contatos.map(contato => {
-                    return <option value={contato.id}>{contato.nome}</option>
-                }) }
-            </select>
-            <input type="url" placeholder="Url"
-                value = {endereco}
-                onChange={(e) => this.setState({endereco: e.target.value})}
-                required
-            />
-            <button>Editar</button>
-        </form>
+                <select
+                    value={contatoId}
+                    onChange={(e) => this.setState({contatoId: e.target.value})}
+                    required
+                >
+                    {contatos.map(contato => {
+                        return <option value={contato.id}>{contato.nome}</option>
+                    }) }
+                </select>
+                <input type="url" placeholder="Url"
+                    value = {endereco}
+                    onChange={(e) => this.setState({endereco: e.target.value})}
+                    required
+                />
+                <button>Editar</button>
+            </form>
+            <button onClick={() => this.removerContato()}>Deletar</button>
+        </>
     }
 }
 

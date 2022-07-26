@@ -33,6 +33,10 @@ class EgressoService extends ApiService{
         return this.post(`/editar/${egressoId}/curso/${prevCursoId}/${novoCursoId}`, obj);
     }
 
+    removerCurso(idEgresso, idCurso) {
+        return this.post(`/delete/${idEgresso}/curso/${idCurso}`);
+    }
+
     adicionarCargo(idEgresso, idCargo, obj) {
         return this.post(`/${idEgresso}/cargo/${idCargo}`, obj);
     }
@@ -41,13 +45,22 @@ class EgressoService extends ApiService{
         return this.post(`/editar/${egressoId}/cargo`, obj);
     }
 
+    removerCargo(egressoId, profId) {
+        return this.post(`/delete/${egressoId}/cargo/${profId}`);
+    }
+
     adicionarContato(idEgresso, idContato, obj) {
-        return this.post(`/${idEgresso}/contato/${idContato}`, obj)
+        return this.post(`/${idEgresso}/contato/${idContato}`, obj);
     }
 
     editarContato(idEgresso, idContato, idNovoContato, obj) {
-        return this.post(`/editar/${idEgresso}/contato/${idContato}/${idNovoContato}`, obj)
+        return this.post(`/editar/${idEgresso}/contato/${idContato}/${idNovoContato}`, obj);
     }
+
+    removerContato(idEgresso, idContato) {
+        return this.post(`/deletar/${idEgresso}/contato/${idContato}`);
+    }
+
 }
 
 export default EgressoService;

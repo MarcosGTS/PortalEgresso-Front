@@ -9,6 +9,7 @@ class ApiService {
         this.apiUrl = apiUrl;
         if (apiToken) {
             instance.defaults.headers.post["Authorization"] = apiToken;
+            instance.defaults.headers.post["Authorization"] = apiToken;
         }
     }
 

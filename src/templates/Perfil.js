@@ -1,6 +1,5 @@
 import React from "react";
 import Carrossel from "../components/carrossel/Carrossel";
-import Depoimento from "../components/depoimento/Depoimento";
 import Paginacao from "../components/paginacao/Paginacao";
 import EgressoService from "../services/EgressoService";
 import DepoimentoService from "../services/DepoimentoService";
@@ -9,7 +8,8 @@ import "./Perfil.css";
 import defaultImg from "../imgs/perfil_default.png";
 import { useParams } from "react-router-dom";
 import GerenricCard from "../components/GenericCard";
-import SideSlider from "../components/SideSlider";
+import GenericList from "../components/ListGroup";
+import { Image } from "react-bootstrap";
 
 export function withRoute(Children) {
     return (props) => {
@@ -137,6 +137,24 @@ class Perfil extends React.Component {
 
         const depoimento = this.state.depoimento;
         const resumo = this.state.egresso.resumo;
+        let contatos = [];
+
+        if (this.state.egresso.contatos) {
+            contatos = this.state.egresso.contatos.map(contatoAssoc => {
+                const contato = contatoAssoc.contato;
+                return <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                        minWidth: '150px',
+                        cursor: "pointer"
+                    }}
+                >
+                    <Image src={contato.url_logo} roundedCircle style={{width: "50px", height: "auto"}}/>
+                    <a href={contatoAssoc.endereco}>{contato.nome}</a>
+                </div>
+            });
+        }
 
         return <div className="home">
             <div className="perfil-informacoes">
@@ -149,12 +167,28 @@ class Perfil extends React.Component {
                     cursos={this.state["egresso"]["cursoEgressoAssoc"]}
                 />
             </div>
+
             <div className="perfil-depoimento">
+                
+
+                {
+                contatos.length > 0 ?
+                    <div style={{
+                        display: "flex", 
+                        flexDirection: "column",
+                        marginRight: "20%",
+                    }}>
+                        <GenericList title="Contatos" list={contatos}/>
+                    </div>
+                    : ""
+                }
+
                 <Paginacao>
                     <div name="Resumo">{resumo}</div>
                     <div name="Depoimento">{depoimento.texto}</div>
                 </Paginacao>   
             </div>
+
             <div className="perfil-experiencias">
                 <h2>Experiencias</h2>
                 <div>
@@ -183,7 +217,13 @@ class Perfil extends React.Component {
 }
 
 function Informacoes(props) {
-    return <div className="informacoes">
+    return <div className="informacoes"
+        style={{
+            display: "flex", 
+            flexDirection: "column",
+            alignItems: "center",
+        }}
+    >
         <ul>
             <li><div className="highlight">Email:</div> {props.email}</li>
         </ul>

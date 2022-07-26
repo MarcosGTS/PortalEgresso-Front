@@ -52,52 +52,71 @@ class EditarCurso extends React.Component {
             })
     }
 
+    removerCurso() {
+        const egressoId = localStorage.getItem("Id");
+        const apiToken = localStorage.getItem("Token");
+        const service = new EgressoService(apiToken);
+        const prevCursoId = this.state.prevCursoId;
+
+        service.removerCurso(egressoId, prevCursoId)
+            .then(response => {
+                alert("Removido com sucesso!");
+                window.location.reload();
+            })
+            .catch(erro => {
+                alert(`${erro}`);
+            })
+    }
+
     render() {
         const {cursos} = this.state;
         const {cursoId} = this.state;
         const {dataInicio} = this.state;
         const {dataConclusao} = this.state;
 
-        return <form
-            onSubmit={(e) => {
-                e.preventDefault();
-                this.editarCurso()
-            }}
-            style={{
-                display: "flex",
-                flexDirection: "column",
-            }}
-        >
-            <label for="curso-escolhido">Curso: </label>
-            <select
-                id="curso-escolhido"
-                onChange={(e) => {
-                    this.setState({cursoId: e.target.value})
+        return <>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    this.editarCurso()
                 }}
-                value={cursoId}
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                }}
             >
-                {cursos.map(curso => {
-                    return <option value={curso.id}>{curso.nome}</option>
-                })}
-            </select>
-            <label for="data-inicio">Data Inicio: </label>
-            <input 
-                id="data-inicio"
-                type="date" defaultValue={dataInicio}
-                onChange={(e) =>{
-                    this.setState({dataInicio: e.target.value})
-                }}
-            />
-            <label for="data-conclusao">Data Conclusao: </label>
-            <input 
-                id="data-conclusao"
-                type="date" defaultValue={dataConclusao}
-                onChange={(e) =>{
-                    this.setState({dataConclusao: e.target.value})
-                }}
-            />
-            <button>Salvar</button>
-        </form>
+                <label for="curso-escolhido">Curso: </label>
+                <select
+                    id="curso-escolhido"
+                    onChange={(e) => {
+                        this.setState({cursoId: e.target.value})
+                    }}
+                    value={cursoId}
+                >
+                    {cursos.map(curso => {
+                        return <option value={curso.id}>{curso.nome}</option>
+                    })}
+                </select>
+                <label for="data-inicio">Data Inicio: </label>
+                <input 
+                    id="data-inicio"
+                    type="date" defaultValue={dataInicio}
+                    onChange={(e) =>{
+                        this.setState({dataInicio: e.target.value})
+                    }}
+                />
+                <label for="data-conclusao">Data Conclusao: </label>
+                <input 
+                    id="data-conclusao"
+                    type="date" defaultValue={dataConclusao}
+                    onChange={(e) =>{
+                        this.setState({dataConclusao: e.target.value})
+                    }}
+                />
+                <button>Salvar</button>
+            </form>
+            <button onClick={() => this.removerCurso()}>Deletar</button>
+        </>
     }
 }
 

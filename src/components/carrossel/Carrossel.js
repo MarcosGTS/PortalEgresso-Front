@@ -14,9 +14,11 @@ function Carrossel({ children }) {
     return (
         <div className='carrossel'>
             <div className='buttons-container'>
-                {buttons.map(child => 
+                {buttons.map((child, i) => 
                     {if (buttons.length > 1) {
-                        return <div onClick={changeIndex} className="radio-button"></div>
+                        if (i === index)
+                            return <div onClick={changeIndex} className="radio-button" style={{backgroundColor: "#0d6efd"}}></div>
+                        return <div onClick={changeIndex} className="radio-button" style={{backgroundColor: "#666"}}></div>
                     }}
                 )}
             </div>

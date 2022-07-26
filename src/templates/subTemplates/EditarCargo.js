@@ -73,6 +73,22 @@ class EditarCargo extends React.Component {
                 alert(erro);
             })
     }
+
+    deletarCargo() {
+        const egressoId = localStorage.getItem("Id");
+        const apiToken = localStorage.getItem("Token");
+        const service = new EgressoService(apiToken);
+        const prevCargoId = this.state.prevCargoId;
+
+        service.removerCargo(egressoId, prevCargoId)
+            .then(response => {
+                alert("Removido com sucesso");
+                window.location.reload();
+            })
+            .catch(erro => {
+                alert(`${erro}`);
+            })
+    }
     
     render() { 
         const {cargos} = this.state;
@@ -84,71 +100,76 @@ class EditarCargo extends React.Component {
         const {descricao} = this.state;
         const {dataRegistro} = this.state;
 
-        return <form onSubmit={(e) => {
-                e.preventDefault();
-                this.editarCargo();
-            }}
-            style={{
-                display: "flex",
-                flexDirection: "column",
-            }}
-        >
-            <label for="empresa">Empresa: </label>
-            <input 
-                id="empresa"
-                placeholder="Empresa"
-                value={empresa}
-                onChange={(e) =>{
-                    this.setState({empresa: e.target.value})
+        return <>
+            <form onSubmit={(e) => {
+                    e.preventDefault();
+                    this.editarCargo();
                 }}
-            />
-
-            <label for="cargo">Cargo: </label>
-            <select
-                id="cargo"
-                onChange={(e) => {
-                    this.setState({cargoId: e.target.value})
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
                 }}
-                value={cargoId}
             >
-                {cargos.map(cargo => {
-                    return <option value={cargo.id}>{cargo.nome}</option>
-                })}
-            </select>
+                <label for="empresa">Empresa: </label>
+                <input 
+                    id="empresa"
+                    placeholder="Empresa"
+                    value={empresa}
+                    onChange={(e) =>{
+                        this.setState({empresa: e.target.value})
+                    }}
+                />
 
-            <label for="faixa">Faixa Salarial:</label>
-            <select
-                id="faixa"
-                onChange={(e) => {
-                    this.setState({faixaId: e.target.value})
-                }}
-                value={faixaId}
-            >
-                {faixas.map(faixa => {
-                    return <option value={faixa.id}>{faixa.descricao}</option>
-                })}
-            </select>
+                <label for="cargo">Cargo: </label>
+                <select
+                    id="cargo"
+                    onChange={(e) => {
+                        this.setState({cargoId: e.target.value})
+                    }}
+                    value={cargoId}
+                >
+                    {cargos.map(cargo => {
+                        return <option value={cargo.id}>{cargo.nome}</option>
+                    })}
+                </select>
 
-            <label for="registro">Data de Registro: </label>
-            <input 
-                id="registro"
-                type="date" 
-                value={dataRegistro}
-                onChange={(e) => {
-                    this.setState({dataRegistro: e.target.value})
-                }}
-            />
+                <label for="faixa">Faixa Salarial:</label>
+                <select
+                    id="faixa"
+                    onChange={(e) => {
+                        this.setState({faixaId: e.target.value})
+                    }}
+                    value={faixaId}
+                >
+                    {faixas.map(faixa => {
+                        return <option value={faixa.id}>{faixa.descricao}</option>
+                    })}
+                </select>
 
-            <textarea
-                placeholder="Descricao"
-                value={descricao}
-                onChange={(e) => {
-                    this.setState({descricao: e.target.value})
-                }}
-            />
+                <label for="registro">Data de Registro: </label>
+                <input 
+                    id="registro"
+                    type="date" 
+                    value={dataRegistro}
+                    onChange={(e) => {
+                        this.setState({dataRegistro: e.target.value})
+                    }}
+                />
 
-            <button>Editar</button>
-        </form>
+                <textarea
+                    placeholder="Descricao"
+                    value={descricao}
+                    onChange={(e) => {
+                        this.setState({descricao: e.target.value})
+                    }}
+                />
+
+                <button>Editar</button>
+            </form>
+            <button onClick={() => {
+                this.deletarCargo()
+            }}>Deletar</button>
+        </>
     }  
             
 }
